@@ -1,0 +1,45 @@
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <!-- <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" ui-sref-active="active" ui-sref="app.main"><i class="icon-speedometer"></i> Dashboard</a>
+            </li>
+        </ul> -->
+
+        <ul class="state-list margins">
+            <li>State : <strong>{{ octoprint.data.printer.state.text }}</strong></li>
+            <li class="divider"></li>
+            <li>File : <strong>{{ octoprint.data.jobs.job.file.name }}</strong></li>
+            <li>Timelapse: <strong>{{ octoprint.data.timelapses.config.type }}</strong></li>
+            <li>Approx. Total Print Time : <strong>{{ octoprint.data.jobs.job.estimatedPrintTime / 3600 | number : 0 }} hours</strong></li>
+            <li class="divider"></li>
+            <li>Print Time : <strong>{{ octoprint.data.jobs.progress.printTime / 3600 | number: 0 }}h</strong></li>
+            <li>Print Time Left : <strong>{{ octoprint.data.jobs.progress.printTimeLeft/3600 | number: 0 }}h</strong></li>
+            <!-- <li>Current Height: <strong>value</strong></li> -->
+            <li>Progress: <strong>{{ octoprint.data.jobs.progress.completion | number: 1 }}%</strong></li>
+        </ul>
+
+        <div class="progress margins">
+            <div class="progress-bar" ng-class="octoprint.data.jobs.progress.completion != 0 && octoprint.data.jobs.progress.completion != 100 ? 'progress-bar-striped progress-bar-animated' : ''" role="progressbar" aria-valuenow="{{ octoprint.data.jobs.progress.completion | number: 1 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ octoprint.data.jobs.progress.completion | number: 1 }}%">
+                {{ octoprint.data.jobs.progress.completion | number: 1 }}%
+            </div>
+        </div>
+
+        <div class="action-buttons margins">
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-block" ng-disabled="{{ !octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('start')">Print</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-block" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('pause')">Pause</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-block" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('cancel')">Cancel</button>
+                </div>
+            </div><br />
+            <button class="btn btn-primary btn-block" ng-click="octoprint.sendGcode(['M600'])" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" >Change filament</button>
+        </div>
+
+
+    </nav>
+</div>

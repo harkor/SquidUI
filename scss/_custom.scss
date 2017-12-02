@@ -1,0 +1,39 @@
+// Here you can add other styles
+
+.btn {
+    cursor: pointer;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.terminal-body {
+    background: #656b76;
+    color: #dadadc;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.sidebar-nav {
+
+    .margins {
+        margin: 15px;
+    }
+
+    .state-list {
+        list-style: none;
+        padding: 0;
+
+        li {
+            line-height: 200%;
+        }
+
+        li.divider {
+            border-bottom: 1px solid #fff;
+            margin: 5px 0;
+        }
+
+    }
+
+}

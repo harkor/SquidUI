@@ -1,0 +1,50 @@
+<!-- Navbar -->
+<div ng-include="'views/common/navbar.html'"></div>
+
+<div class="app-body">
+    <!-- Navigation -->
+    <div ng-include="'views/common/sidebar-nav.html'"></div>
+
+    <!-- Main content -->
+    <main class="main">
+
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb" breadcrumb>
+            <ncy-breadcrumb></ncy-breadcrumb>
+
+            <li class="breadcrumb-menu">
+                <div class="btn-group">
+                    <!-- <a class="btn" ng-repeat="cmd in octoprint.data.system.commands.core" ng-click="octoprint.sendSystemCommand(cmd)" ng-show="cmd.name">{{ cmd.name }}</a> -->
+                    <!-- <a class="btn" ng-repeat="cmd in octoprint.data.system.commands.custom" ng-click="octoprint.sendSystemCommand(cmd)" ng-show="cmd.name">{{ cmd.name }}</a> -->
+
+                    <a class="btn nav-link dropdown-toggle" id="navbarDropdownMenuCustomLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-diamond"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuCustomLink">
+                      <a class="dropdown-item" ng-repeat="cmd in octoprint.data.system.commands.custom" ng-click="octoprint.sendSystemCommand(cmd)" ng-show="cmd.name">{{ cmd.name }}</a>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <a class="btn nav-link dropdown-toggle" id="navbarDropdownMenuCoreLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-power-off"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuCoreLink">
+                      <a class="dropdown-item" ng-repeat="cmd in octoprint.data.system.commands.core" ng-click="octoprint.sendSystemCommand(cmd)" ng-show="cmd.name">{{ cmd.name }}</a>
+                    </div>
+
+                </div>
+            </li>
+        </ol>
+
+        <div class="container-fluid">
+            <ui-view></ui-view>
+        </div>
+        <!-- /.conainer-fluid -->
+    </main>
+
+
+</div>
+
+<!-- Footer -->
+<!-- <div ng-include="'views/common/footer.html'"></div> -->

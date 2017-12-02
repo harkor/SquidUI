@@ -1,0 +1,190 @@
+<div class="animated fadeIn">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <div class="card">
+              <div class="card-header">
+                <i class="fa fa-arrows"></i> Controls
+              </div>
+              <div class="card-body">
+
+                  <div class="row">
+
+                      <div class="col">
+
+                          <div class="row">
+
+                              <div class="col-md-8">
+
+                                  <h2 class="text-center">XY</h2>
+
+                                  <div class="row">
+                                      <div class="col-md-4 offset-md-4">
+                                          <button ng-click="octoprint.sendGCode(['G91','G1 Y10', 'G90'])" class="btn btn-primary" style="margin-bottom: 20px;"><i class="fa fa-arrow-up"></i></button>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4 text-right">
+                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 X-10 F6000', 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-left"></i></button>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <button ng-click="octoprint.sendGCode(['G91', 'G28 X0 Y0', 'G90'])" class="btn btn-primary"><i class="fa fa-home"></i></button>
+                                      </div>
+                                      <div class="col-md-4 text-left">
+                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 X10 F6000', 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-right"></i></button>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4 offset-md-4">
+                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 Y-10', 'G90'])" class="btn btn-primary" style="margin-top: 20px;"><i class="fa fa-arrow-down"></i></button>
+                                      </div>
+                                  </div>
+
+                              </div>
+                              <div class="col-md-4">
+                                  <h2 class="text-center">Z</h2>
+
+                                 <div class="row text-center">
+                                     <div class="col-md-12">
+                                         <button ng-click="octoprint.sendGCode(['G91','G1 Z10', 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-up"></i></button>
+                                     </div>
+                                     <div class="col-md-12">
+                                         <button ng-click="octoprint.sendGCode(['G91', 'G28 Z0', 'G90'])" class="btn btn-primary" style="margin: 20px 0;"><i class="fa fa-home"></i></button>
+                                     </div>
+                                     <div class="col-md-12">
+                                         <button ng-click="octoprint.sendGCode(['G91','G1 Z-10', 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-down"></i></button>
+                                     </div>
+                                 </div>
+                              </div>
+
+                      </div>
+
+                  </div>
+
+                  </div>
+
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <i class="fa fa-eye"></i> Webcam
+                <div class="card-actions">
+                  <a target="_blank" href="http://192.168.1.114/webcam/?action=stream">
+                    <small class="text-muted"><i class="fa fa-external-link fa-fw"></i></small>
+                  </a>
+                </div>
+              </div>
+
+              <div class="card-body">
+                  <img ng-src="{{ octoprint.host }}{{ octoprint.data.settings.webcam.streamUrl }}" class="img-fluid" />
+              </div>
+
+            </div>
+
+        </div>
+
+        <div class="col">
+            <div class="card">
+              <div class="card-header">
+                <i class="fa fa-terminal"></i> Terminal
+              </div>
+              <div class="card-body terminal-body">
+                  <span ng-repeat="log in octoprint.data.messages track by $index">{{log}}<br /></span>
+              </div>
+              <form ng-submit="sendGcode()">
+                  <div class="input-group">
+                      <!-- <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button">Hate it</button>
+                      </span> -->
+                      <input type="text" class="form-control" ng-model="terminal.gcode">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary"  type="button">Send</button>
+                      </span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <i class="fa fa-terminal"></i> Custom Commands
+              </div>
+              <div class="card-body">
+                    <h6 class="text-center"></h6>
+                    <div class="row">
+                        <div class="col">
+                            <button ng-click="octoprint.sendGCode(['M18'])" class="btn btn-primary btn-block">Motors off</button>
+                            <button ng-click="octoprint.sendGCode(['M106 S255'])" class="btn btn-primary btn-block">Fan on</button>
+                            <button ng-click="octoprint.sendGCode(['M106 S0'])" class="btn btn-primary btn-block">Fan off</button>
+                        </div>
+                        <div class="col">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card" ng-show="false">
+              <div class="card-header">
+                <i class="fa fa-diamond"></i> System control
+                <div class="card-actions">
+                  <a target="_blank" href="http://192.168.1.114/webcam/?action=stream">
+                    <small class="text-muted"><i class="fa fa-external-link fa-fw"></i></small>
+                  </a>
+                </div>
+              </div>
+
+              <div class="card-body">
+
+                  <div class="row">
+
+                      <div class="col">
+                          <h2>Core</h2>
+                          <button class="btn btn-primary btn-block" ng-repeat="cmd in octoprint.data.system.commands.core" ng-click="octoprint.sendSystemCommand(cmd)">{{ cmd.name }}</button>
+                      </div>
+
+                      <div class="col">
+                          <h2>Custom</h2>
+                          <button class="btn btn-primary btn-block" ng-repeat="cmd in octoprint.data.system.commands.custom" ng-click="octoprint.sendSystemCommand(cmd)" ng-show="cmd.name">{{ cmd.name }}</button>
+                      </div>
+
+                  </div>
+
+              </div>
+
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <i class="fa fa-thermometer-quarter"></i> Temperatures {{ octoprint.data.printer.temperature.tool0.actual }} / {{ octoprint.data.printer.temperature.tool0.target }}
+              </div>
+              <div class="card-body">
+                  <!-- <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                  <canvas id="line" class="chart chart-line ng-isolate-scope chartjs-render-monitor" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick" style="display: block; width: 771px; height: 385px;" width="771" height="385"></canvas> -->
+
+                 <!-- <canvas id="line"
+                    class="chart chart-line"
+                    chart-data="data"
+                    chart-labels="labels"
+                    chart-series="series"
+                    chart-options="options"
+                    chart-dataset-override="datasetOverride"
+                ></canvas> -->
+
+                <plotly plotly-data="tempChart.data" plotly-layout="tempChart.layout" plotly-options="tempChart.options"></plotly>
+
+              </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
