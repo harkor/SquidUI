@@ -104,14 +104,14 @@ function octoPrint($http, $q, __env){
         var data = { command : job };
         if(job == "pause") data.action = 'toggle';
 
-        // $http({
-        //   method: 'POST',
-        //   url: svc.apiUrl+'/job',
-        //   data : data,
-        //   headers: { 'X-Api-Key': svc.apiKey }
-        // }).then(function(response){
-        //     console.log(response.data);
-        // });
+        $http({
+          method: 'POST',
+          url: svc.apiUrl+'/job',
+          data : data,
+          headers: { 'X-Api-Key': svc.apiKey }
+        }).then(function(response){
+            console.log(response.data);
+        });
 
     }
 

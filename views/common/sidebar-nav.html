@@ -28,16 +28,16 @@
         <div class="action-buttons margins">
             <div class="row">
                 <div class="col-md-4">
-                    <button class="btn btn-primary btn-block" ng-disabled="{{ !octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('start')">Print</button>
+                    <button class="btn btn-primary btn-block" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('start')">Print</button>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-primary btn-block" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('pause')">Pause</button>
+                    <button class="btn btn-primary btn-block" ng-disabled="{{ !octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('pause')">Pause</button>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-primary btn-block" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('cancel')">Cancel</button>
+                    <button class="btn btn-primary btn-block" ng-disabled="{{ !octoprint.data.printer.state.flags.printing }}" ng-click="octoprint.sendJob('cancel')">Cancel</button>
                 </div>
             </div><br />
-            <button class="btn btn-primary btn-block" ng-click="octoprint.sendGcode(['M600'])" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" >Change filament</button>
+            <button class="btn btn-primary btn-block" ng-click="octoprint.sendGCode(['M600'])" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" >Change filament</button>
         </div>
 
 

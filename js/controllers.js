@@ -10,6 +10,7 @@ function mainCtrl($scope, $interval, octoPrint) {
     // octoPrint.sendGCode('G28');
 
     $scope.terminal = {};
+    $scope.temperature = {};
 
 
 
@@ -124,6 +125,15 @@ function mainCtrl($scope, $interval, octoPrint) {
 
         $scope.octoprint.sendGCode([$scope.terminal.gcode]);
         $scope.terminal.gcode = "";
+
+    }
+
+    $scope.setTemp = function(){
+
+        $scope.octoprint.sendGCode(['M104 S'+$scope.temperature.degrees]);
+        $scope.temperature.degreesPlaceholder = $scope.temperature.degrees;
+        if($scope.temperature.degreesPlaceholder == 0) $scope.temperature.degreesPlaceholder = "";
+        $scope.temperature.degrees = "";
 
     }
 
