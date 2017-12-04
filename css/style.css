@@ -8934,6 +8934,10 @@ hr.transparent {
   font-size: 12px;
   margin: 0 auto; }
 
+.btn-group-xyzcontrol {
+  margin-top: 15px;
+  margin-left: 15px; }
+
 .sidebar-nav h1 {
   font-size: 16px;
   padding: 0 15px;

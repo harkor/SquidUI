@@ -13,7 +13,11 @@ function mainCtrl($scope, $interval, octoPrint) {
 
     $scope.settings = {
         autoscroll : true,
-    }
+    };
+
+    $scope.xyzcontrol = {
+        distance : 1
+    };
 
     /* TEMPERATURES CHART */
     $scope.tempChart = {};
