@@ -182,7 +182,7 @@ function octoPrint($http, $q, __env){
 
     svc.sendSystemCommand = function(cmd){
 
-        svc.socket.system.executeCommand();
+        svc.socket.system.executeCommand(cmd.source, cmd.action);
 
     }
 
