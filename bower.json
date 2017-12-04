@@ -1,5 +1,5 @@
 {
-  "name": "CoreUI",
+  "name": "coreui",
   "version": "1.0.0-alpha.5 (AngularJS)",
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
@@ -21,7 +21,8 @@
     "gcode-viewer": "git@github.com:hudbrog/gCodeViewer.git",
     "angular-filesize-filter": "^0.1.3",
     "angular-moment": "^1.2.0",
-    "angular-duration-filter-formatter": "^1.0.1"
+    "angular-duration-filter-formatter": "^1.0.1",
+    "angular-bootstrap": "^2.5.0"
   },
   "private": true
 }

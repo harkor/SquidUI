@@ -29,7 +29,8 @@ angular
   'plotly',
   'angularMoment',
   'ngFilesizeFilter',
-  'filter.duration'
+  'filter.duration',
+  'ui.bootstrap'
   // 'chart.js'
   // 'bd.sockjs'
   // 'ngWebsocket'

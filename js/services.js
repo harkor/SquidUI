@@ -175,7 +175,7 @@ function octoPrint($http, $q, __env){
     svc.getSystemCommands = function(){
 
         svc.socket.system.getCommands().done(function(response){
-            svc.data.system.commands = response
+            svc.data.system.commands = response;
         });
 
     }

@@ -8,9 +8,9 @@
 <span class="file-manager-item-size" ng-if="file.size != null">Size: {{ file.size | filesize:1 }}</span>
 
 <div class="btn-group" ng-if="file.type != 'folder'">
-    <button class="btn btn-secondary" title="Delete" ng-click="octoprint.deleteFile(file)"><i class="fa fa-trash fa-fw"></i></button>
-    <button class="btn btn-secondary" title="Load"  ng-click="octoprint.loadFile(file, false)"><i class="fa fa-fw fa-folder-open"></i></button>
-    <button class="btn btn-secondary" title="Print" ng-click="octoprint.loadFile(file, true)"><i class="fa fa-print fa-fw"></i></button>
+    <button class="btn btn-secondary" ng-disabled="octoprint.data.jobs.job.file.name == file.name" title="Delete" ng-click="octoprint.deleteFile(file)"><i class="fa fa-trash fa-fw"></i></button>
+    <button class="btn btn-secondary" ng-disabled="octoprint.data.printer.state.flags.printing || octoprint.data.jobs.job.file.name == file.name" title="Load"  ng-click="octoprint.loadFile(file, false)"><i class="fa fa-fw fa-folder-open"></i></button>
+    <button class="btn btn-secondary" ng-disabled="octoprint.data.printer.state.flags.printing" title="Print" ng-click="octoprint.loadFile(file, true)"><i class="fa fa-print fa-fw"></i></button>
     <a class="btn btn-secondary" title="Download" href="{{ file.refs.download }}"><i class="fa fa-download fa-fw"></i></a>
 </div>
 <div class="clearfix"></div>

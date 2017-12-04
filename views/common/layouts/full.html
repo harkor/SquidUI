@@ -21,7 +21,11 @@
                       <i class="fa fa-diamond"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuCustomLink">
-                      <a class="dropdown-item" ng-repeat="cmd in octoprint.data.system.commands.custom" ng-click="octoprint.sendSystemCommand(cmd)" ng-show="cmd.name">{{ cmd.name }}</a>
+                      <a class="dropdown-item" ng-repeat="cmd in octoprint.data.system.commands.custom"
+                            ng-click="cmd.confirm == null ? octoprint.sendSystemCommand(cmd) : ShowConfirmModal(cmd, octoprint.sendSystemCommand)"
+                            ng-show="cmd.name">
+                        {{ cmd.name }}
+                    </a>
                     </div>
                 </div>
 
@@ -30,7 +34,9 @@
                       <i class="fa fa-power-off"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuCoreLink">
-                      <a class="dropdown-item" ng-repeat="cmd in octoprint.data.system.commands.core" ng-click="octoprint.sendSystemCommand(cmd)" ng-show="cmd.name">{{ cmd.name }}</a>
+                      <a class="dropdown-item" ng-repeat="cmd in octoprint.data.system.commands.core"
+                      ng-click="cmd.confirm == null ? octoprint.sendSystemCommand(cmd) : ShowConfirmModal(cmd, octoprint.sendSystemCommand)"
+                      ng-show="cmd.name">{{ cmd.name }}</a>
                     </div>
 
                 </div>
