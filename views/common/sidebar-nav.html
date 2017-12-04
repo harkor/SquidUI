@@ -6,15 +6,18 @@
             </li>
         </ul> -->
 
+        <h1><i class="fa fa-info fa-fw"></i>State</h1>
+
         <ul class="state-list margins">
-            <li>State : <strong>{{ octoprint.data.printer.state.text }}</strong></li>
+            <li>State: <strong>{{ octoprint.data.printer.state.text }}</strong></li>
             <li class="divider"></li>
-            <li>File : <strong>{{ octoprint.data.jobs.job.file.name }}</strong></li>
+            <li>File: <strong>{{ octoprint.data.jobs.job.file.name }}</strong></li>
             <li>Timelapse: <strong>{{ octoprint.data.timelapses.config.type }}</strong></li>
-            <li>Approx. Total Print Time : <strong>{{ octoprint.data.jobs.job.estimatedPrintTime / 3600 | number : 0 }} hours</strong></li>
+            <li>Approx. Total Print Time: <strong>{{ octoprint.data.jobs.job.estimatedPrintTime * 1000 | duration }}</strong></li>
             <li class="divider"></li>
-            <li>Print Time : <strong>{{ octoprint.data.jobs.progress.printTime / 3600 | number: 0 }}h</strong></li>
-            <li>Print Time Left : <strong>{{ octoprint.data.jobs.progress.printTimeLeft/3600 | number: 0 }}h</strong></li>
+            <li>Current Z: <strong>{{ octoprint.data.currentZ ? octoprint.data.currentZ + 'mm' : '-' }}</strong></li>
+            <li>Print Time: <strong>{{ octoprint.data.jobs.progress.printTime ? (octoprint.data.jobs.progress.printTime * 1000 | duration) : '-' }}</strong></li>
+            <li>Print Time Left: <strong>{{ octoprint.data.jobs.progress.printTimeLeft ? (octoprint.data.jobs.progress.printTimeLeft * 1000 | duration) : '-' }}</strong></li>
             <!-- <li>Current Height: <strong>value</strong></li> -->
             <li>Progress: <strong>{{ octoprint.data.jobs.progress.completion | number: 1 }}%</strong></li>
         </ul>
@@ -38,6 +41,19 @@
                 </div>
             </div><br />
             <button class="btn btn-primary btn-block" ng-click="octoprint.sendGCode(['M600'])" ng-disabled="{{ octoprint.data.printer.state.flags.printing }}" >Change filament</button>
+        </div>
+
+        <h1><i class="fa fa-list fa-fw"></i> Files <a href="#" class="float-right" ng-click="octoprint.getFiles()"><i class="fa fa-refresh fa-fw"></i></a></h1>
+
+        <div class="margins">
+            <input type="text" ng-model="searchFile.name" class="form-control" placeholder="Search..." />
+            <div class="file-manager-list-container">
+                <div class="file-manager-list">
+                    <div class="file-manager-item" ng-class="file.type == 'folder' ? 'folder':''" ng-repeat="file in octoprint.data.files.files | orderBy : ['children.length', 'name'] | searchFileManager : searchFile">
+                        <ng-include src="'views/partials/list-files-item.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
         </div>
 
 

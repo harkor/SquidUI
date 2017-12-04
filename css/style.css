@@ -8927,6 +8927,18 @@ hr.transparent {
   height: 300px;
   overflow-y: scroll; }
 
+.input-group-btn {
+  background: #eee; }
+
+.input-group-btn .fa {
+  font-size: 12px;
+  margin: 0 auto; }
+
+.sidebar-nav h1 {
+  font-size: 16px;
+  padding: 0 15px;
+  margin-top: 30px; }
+
 .sidebar-nav .margins {
   margin: 15px; }
 
@@ -8938,3 +8950,32 @@ hr.transparent {
   .sidebar-nav .state-list li.divider {
     border-bottom: 1px solid #fff;
     margin: 5px 0; }
+
+.file-manager-list-container {
+  max-height: 270px;
+  overflow-y: auto; }
+  .file-manager-list-container .file-manager-list .file-manager-item {
+    border-bottom: 1px solid #aaa;
+    padding: 5px; }
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name {
+      display: block;
+      text-overflow: ellipsis;
+      word-break: break-all; }
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name.loaded-file {
+      font-weight: bold; }
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-date {
+      display: block; }
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-size {
+      display: block;
+      float: left; }
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item {
+      padding-left: 10px; }
+    .file-manager-list-container .file-manager-list .file-manager-item .btn-group {
+      float: right; }
+      .file-manager-list-container .file-manager-list .file-manager-item .btn-group .btn {
+        font-size: 12px;
+        margin: 0 5px;
+        padding: 5px;
+        margin: 5px; }
+  .file-manager-list-container .file-manager-list .file-manager-item.folder .file-manager-item-name {
+    cursor: pointer; }

@@ -27,6 +27,9 @@ angular
   'ncy-angular-breadcrumb',
   'angular-loading-bar',
   'plotly',
+  'angularMoment',
+  'ngFilesizeFilter',
+  'filter.duration'
   // 'chart.js'
   // 'bd.sockjs'
   // 'ngWebsocket'
@@ -45,20 +48,22 @@ angular
 
 angular
 .module('app')
-.constant('__env', env);;
+.constant('__env', env)
+// .constant('moment', require('moment-timezone'));
+;
 
-if (!angular.merge) {
-
-    angular.merge = (function mergePollyfill() {
-        function setHashKey(obj, h) {
-            if (h) {
-                obj.$$hashKey = h;
-            } else {
-                delete obj.$$hashKey;
-            }
-        }
-    });
-
-
-
-}
+// if (!angular.merge) {
+//
+//     angular.merge = (function mergePollyfill() {
+//         function setHashKey(obj, h) {
+//             if (h) {
+//                 obj.$$hashKey = h;
+//             } else {
+//                 delete obj.$$hashKey;
+//             }
+//         }
+//     });
+//
+//
+//
+// }

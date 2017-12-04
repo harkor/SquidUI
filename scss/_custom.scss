@@ -15,7 +15,22 @@
     overflow-y: scroll;
 }
 
+.input-group-btn {
+    background: #eee;
+}
+
+.input-group-btn .fa {
+    font-size: 12px;
+    margin: 0 auto;
+}
+
 .sidebar-nav {
+
+    h1 {
+        font-size: 16px;
+        padding: 0 15px;
+        margin-top: 30px;
+    }
 
     .margins {
         margin: 15px;
@@ -36,4 +51,61 @@
 
     }
 
+}
+
+.file-manager-list-container {
+
+    max-height: 270px;
+    overflow-y: auto;
+
+    .file-manager-list {
+
+        .file-manager-item {
+
+            border-bottom: 1px solid #aaa;
+            padding: 5px;
+
+            .file-manager-item-name {
+                display: block;
+                text-overflow: ellipsis;
+                word-break: break-all;
+            }
+
+            .file-manager-item-name.loaded-file {
+                font-weight: bold;
+            }
+
+            .file-manager-item-date {
+                display: block;
+            }
+
+            .file-manager-item-size {
+                display: block;
+                float: left;
+            }
+
+            .file-manager-item {
+                padding-left: 10px;
+            }
+
+            .btn-group {
+                float: right;
+
+                .btn {
+                    font-size: 12px;
+                    margin: 0 5px;
+                    padding: 5px;
+                    margin: 5px;
+                }
+            }
+
+        }
+
+        .file-manager-item.folder {
+            .file-manager-item-name {
+                cursor: pointer;
+            }
+        }
+
+    }
 }
