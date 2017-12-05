@@ -22,23 +22,23 @@
 
                                   <div class="row">
                                       <div class="col-md-4 offset-md-4">
-                                          <button ng-click="octoprint.sendGCode(['G91','G1 Y'+ xyzcontrol.distance + ' F6000', 'G90'])" class="btn btn-primary" style="margin-bottom: 20px;"><i class="fa fa-arrow-up"></i></button>
+                                          <button ng-click="octoprint.sendGCode(['G91','G1 Y'+ xyzcontrol.distance + ' F'+octoprint.data.printerprofile.axes.y.speed, 'G90'])" class="btn btn-primary" style="margin-bottom: 20px;"><i class="fa fa-arrow-up"></i></button>
                                       </div>
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4 text-right">
-                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 X-'+ xyzcontrol.distance +' F6000', 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-left"></i></button>
+                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 X-'+ xyzcontrol.distance +' F'+octoprint.data.printerprofile.axes.x.speed, 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-left"></i></button>
                                       </div>
                                       <div class="col-md-4">
                                           <button ng-click="octoprint.sendGCode(['G91', 'G28 X0 Y0', 'G90'])" class="btn btn-primary"><i class="fa fa-home"></i></button>
                                       </div>
                                       <div class="col-md-4 text-left">
-                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 X'+ xyzcontrol.distance +' F6000', 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-right"></i></button>
+                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 X'+ xyzcontrol.distance +' F'+octoprint.data.printerprofile.axes.x.speed, 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-right"></i></button>
                                       </div>
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4 offset-md-4">
-                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 Y-'+ xyzcontrol.distance + ' F6000', 'G90'])" class="btn btn-primary" style="margin-top: 20px;"><i class="fa fa-arrow-down"></i></button>
+                                          <button ng-click="octoprint.sendGCode(['G91', 'G1 Y-'+ xyzcontrol.distance + ' F'+octoprint.data.printerprofile.axes.y.speed, 'G90'])" class="btn btn-primary" style="margin-top: 20px;"><i class="fa fa-arrow-down"></i></button>
                                       </div>
                                   </div>
 
@@ -48,13 +48,13 @@
 
                                  <div class="row text-center">
                                      <div class="col-md-12">
-                                         <button ng-click="octoprint.sendGCode(['G91','G1 Z'+ xyzcontrol.distance + ' F6000', 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-up"></i></button>
+                                         <button ng-click="octoprint.sendGCode(['G91','G1 Z'+ xyzcontrol.distance + ' F'+octoprint.data.printerprofile.axes.z.speed, 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-up"></i></button>
                                      </div>
                                      <div class="col-md-12">
                                          <button ng-click="octoprint.sendGCode(['G91', 'G28 Z0', 'G90'])" class="btn btn-primary" style="margin: 20px 0;"><i class="fa fa-home"></i></button>
                                      </div>
                                      <div class="col-md-12">
-                                         <button ng-click="octoprint.sendGCode(['G91','G1 Z-'+ xyzcontrol.distance + ' F6000', 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-down"></i></button>
+                                         <button ng-click="octoprint.sendGCode(['G91','G1 Z-'+ xyzcontrol.distance + ' F'+octoprint.data.printerprofile.axes.z.speed, 'G90'])" class="btn btn-primary"><i class="fa fa-arrow-down"></i></button>
                                      </div>
                                  </div>
                               </div>
@@ -188,17 +188,25 @@
               <div class="card-body">
                 <plotly plotly-data="octoprint.data.temperaturesChart.data" plotly-layout="tempChart.layout" plotly-options="tempChart.options"></plotly>
               </div>
-                  <form ng-submit="setTemp()">
-                      <div class="input-group">
-                          <span class="input-group-btn">
-                            <i class="fa fa-thermometer-quarter"></i>
-                          </span>
-                          <input type="text" class="form-control" ng-model="temperature.degrees" placeholder="{{ temperature.degreesPlaceholder }}">
-                          <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" ng-click="setTemp()">Set</button>
-                          </span>
-                        </div>
-                    </form>
+              <form ng-submit="setTemp()">
+                  <div class="input-group">
+                      <span class="input-group-addon">Tool 0</span>
+                      <input type="text" class="form-control" ng-model="temperature.degrees" placeholder="{{ temperature.degreesPlaceholder }}">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" ng-click="setTemp()">Set</button>
+                      </span>
+                    </div>
+
+                </form>
+                <form ng-submit="setTemp()">
+                    <div class="input-group" ng-show="octoprint.data.printerprofile.heatedBed">
+                        <span class="input-group-addon">Bed</span>
+                        <input type="text" class="form-control" ng-model="bedTemperature.degrees" placeholder="{{ bedTemperature.degreesPlaceholder }}">
+                        <span class="input-group-btn">
+                          <button class="btn btn-primary" type="button" ng-click="setTemp(true)">Set</button>
+                        </span>
+                      </div>
+                </form>
 
             </div>
 

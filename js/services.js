@@ -29,7 +29,15 @@ function octoPrint($http, $q, __env){
         terminal : {
             offset : 0,
             historic : ['a', 'b', 'c', 'd', 'e']
-        }
+        },
+        terminal : {
+            offset : 0,
+            historic : ['a', 'b', 'c', 'd', 'e']
+        },
+        connection : {
+            settings : null
+        },
+        printerpofile : null
     };
 
     svc.socket = OctoPrint;
@@ -48,6 +56,8 @@ function octoPrint($http, $q, __env){
         svc.getTimelapses();
         svc.getPrinterState();
         svc.getSystemCommands();
+        svc.getPrinterProfiles();
+        svc.getConnectionSettings();
 
         svc.socket.socket.onMessage("*", function(message) {
 
@@ -94,6 +104,7 @@ function octoPrint($http, $q, __env){
     svc.getSettings = function(){
 
         svc.socket.settings.get().done(function(response){
+            console.log(response);
             svc.data.settings = response;
         });
 
@@ -186,6 +197,33 @@ function octoPrint($http, $q, __env){
 
     }
 
+    svc.getPrinterProfiles = function(){
+
+        svc.socket.printerprofiles.list().done(function(response){
+            svc.data.printerprofiles = response;
+        });
+
+    }
+
+    svc.getPrinterProfile = function(id){
+
+        svc.socket.printerprofiles.get(id).done(function(response){
+            svc.data.printerprofile = response;
+        });
+
+    }
+
+    svc.getConnectionSettings = function(){
+
+        svc.socket.connection.getSettings().done(function(response){
+            svc.data.connection.settings = response;
+
+            svc.getPrinterProfile(response.current.printerProfile);
+
+        });
+
+    }
+
     svc.sendGCode = function(gcode, historic){
 
         if(historic == true){
@@ -200,43 +238,94 @@ function octoPrint($http, $q, __env){
 
     svc.setTemp = function(temp){
 
-        if(svc.data.temperaturesChart.data[0] == undefined){
-            svc.data.temperaturesChart.data[0] = {
-                x: [],
-                y: [],
-                name: "actual",
-                showlegend: false
-            }
-        }
+        var i = 0;
+        _.each(temp, function(values, device){
 
-        if(svc.data.temperaturesChart.data[1] == undefined){
-            svc.data.temperaturesChart.data[1] = {
-                x: [],
-                y: [],
-                name: "target",
-                showlegend: false
+            if(device == 'time') return;
+
+            if(device == 'bed' && values.actual != null){
+
+                if(svc.data.temperaturesChart.data[i] == undefined){
+
+                    svc.data.temperaturesChart.data[i] = {
+                        x: [],
+                        y: [],
+                        name: "Bed actual",
+                        showlegend: false
+                    };
+
+                }
+
+                svc.data.temperaturesChart.data[i].y.push(values.actual);
+                svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
+
+                i++;
+
+                if(svc.data.temperaturesChart.data[i] == undefined){
+
+                    svc.data.temperaturesChart.data[i] = {
+                        x: [],
+                        y: [],
+                        name: "Bed target",
+                        showlegend: false
+                    };
+
+                }
+
+                svc.data.temperaturesChart.data[i].y.push(values.target);
+                svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
+
+                i++;
+
+                return;
+
             }
-        }
+
+            if(svc.data.temperaturesChart.data[i] == undefined){
+
+                svc.data.temperaturesChart.data[i] = {
+                    x: [],
+                    y: [],
+                    name: device+" actual",
+                    showlegend: false
+                };
+
+            }
+
+            svc.data.temperaturesChart.data[i].y.push(values.actual);
+            svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
+
+            i++;
+
+            if(svc.data.temperaturesChart.data[i] == undefined){
+
+                svc.data.temperaturesChart.data[i] = {
+                    x: [],
+                    y: [],
+                    name: device+" target",
+                    showlegend: false
+                };
+
+            }
+
+            svc.data.temperaturesChart.data[i].y.push(values.target);
+            svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
+
+            i++;
+
+        });
+
 
         if(svc.data.temperaturesChart.data[0].x.length > 100){ // Max 100 temp
 
-            svc.data.temperaturesChart.data[0].y.splice(0,1);
-            svc.data.temperaturesChart.data[0].x.splice(0,1);
-
-            svc.data.temperaturesChart.data[1].y.splice(0,1);
-            svc.data.temperaturesChart.data[1].x.splice(0,1);
+            _.each(svc.data.temperaturesChart.data, function(val){
+                val.y.splice(0,1);
+                val.x.splice(0,1);
+            });
 
         }
 
-        svc.data.temperaturesChart.data[0].y.push(temp.tool0.actual);
-        svc.data.temperaturesChart.data[0].x.push(new Date(temp.time*1000));
-
-        svc.data.temperaturesChart.data[1].y.push(temp.tool0.target);
-        svc.data.temperaturesChart.data[1].x.push(new Date(temp.time*1000));
-
-
     }
-
 
     return svc;
 

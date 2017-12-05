@@ -12,32 +12,18 @@ function mainCtrl($scope, $interval, octoPrint) {
 
     $scope.terminal = {};
     $scope.temperature = {};
+    $scope.bedTemperature = {};
 
     $scope.settings = {
         autoscroll : true,
     };
 
     $scope.xyzcontrol = {
-        distance : 1
+        distance : 10
     };
 
     /* TEMPERATURES CHART */
     $scope.tempChart = {};
-    $scope.tempChart.data = [
-        {
-            x: [],
-            y: [],
-            name: "actual",
-            showlegend: false
-        },
-        {
-            x: [],
-            y: [],
-            name: "target",
-            opacity : .5,
-            showlegend: false
-        }
-    ];
 
     $scope.tempChart.layout = {
         xaxis : {
@@ -92,12 +78,23 @@ function mainCtrl($scope, $interval, octoPrint) {
 
     }
 
-    $scope.setTemp = function(){
+    $scope.setTemp = function(isBed){
 
-        $scope.octoprint.sendGCode(['M104 S'+$scope.temperature.degrees]);
-        $scope.temperature.degreesPlaceholder = $scope.temperature.degrees;
-        if($scope.temperature.degreesPlaceholder == 0) $scope.temperature.degreesPlaceholder = "";
-        $scope.temperature.degrees = "";
+        if(isBed != null && isBed == true){
+
+            $scope.octoprint.sendGCode(['M140 S'+$scope.bedTemperature.degrees]);
+            $scope.bedTemperature.degreesPlaceholder = $scope.bedTemperature.degrees;
+            if($scope.bedTemperature.degreesPlaceholder == 0) $scope.bedTemperature.degreesPlaceholder = "";
+            $scope.bedTemperature.degrees = "";
+
+        } else {
+
+            $scope.octoprint.sendGCode(['M104 S'+$scope.temperature.degrees]);
+            $scope.temperature.degreesPlaceholder = $scope.temperature.degrees;
+            if($scope.temperature.degreesPlaceholder == 0) $scope.temperature.degreesPlaceholder = "";
+            $scope.temperature.degrees = "";
+
+        }
 
     }
 
