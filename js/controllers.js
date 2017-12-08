@@ -4,11 +4,28 @@ angular
 .controller('mainCtrl', mainCtrl)
 ;
 
+mainCtrl.$inject = ['$rootScope', '$scope', '$interval', 'octoPrint'];
+function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
-mainCtrl.$inject = ['$scope', '$interval', 'octoPrint'];
-function mainCtrl($scope, $interval, octoPrint) {
+    // setTimeout(function(){
+    //     jQuery('#loginModal').modal('show');
+    // }, 500);
 
     octoPrint.init();
+    // octoPrint.run();
+
+    jQuery(window).trigger('resize');
+    jQuery(window).resize(function(event) {
+        jQuery('#webcam-fullscreen img').css({
+            'min-width' : jQuery(window).width()+"px",
+            'min-height' : jQuery(window).height()+"px"
+        });
+    });
+
+    $scope.login = {
+        user : null,
+        pass: null
+    }
 
     $scope.terminal = {};
     $scope.temperature = {};
@@ -16,10 +33,15 @@ function mainCtrl($scope, $interval, octoPrint) {
 
     $scope.settings = {
         autoscroll : true,
+        showFullScreen : false
     };
 
     $scope.xyzcontrol = {
         distance : 10
+    };
+
+    $scope.econtrol = {
+        distance : 5
     };
 
     /* TEMPERATURES CHART */
@@ -126,6 +148,27 @@ function mainCtrl($scope, $interval, octoPrint) {
 
         return result;
 
+    }
+
+    $scope.askLogin = function(){
+
+        $scope.octoprint.login($scope.login.user, $scope.login.pass).done(function(response){
+            $('#loginModal').modal('hide');
+        }).fail(function(error){
+            $scope.login.error = error.responseText;
+        });
+
+    }
+
+    $scope.setFullScreen = function(){
+
+        $rootScope.showFullScreen = !$rootScope.showFullScreen;
+
+    }
+
+    $scope.pouet = function(){
+
+        console.log('click!!!');
     }
 
 

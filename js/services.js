@@ -47,6 +47,13 @@ function octoPrint($http, $q, __env){
         svc.socket.options.baseurl = svc.host
         svc.socket.options.apikey = svc.apiKey;
 
+
+        svc.run();
+
+    }
+
+    svc.run = function(){
+
         svc.socket.socket.connect();
 
         svc.getSettings();
@@ -101,10 +108,18 @@ function octoPrint($http, $q, __env){
 
     }
 
+    svc.login = function(user, pass){
+
+        return OctoPrint.browser.login(user, pass, true).done(function(response) {
+            console.log(response);
+        });
+
+    }
+
     svc.getSettings = function(){
 
         svc.socket.settings.get().done(function(response){
-            console.log(response);
+
             svc.data.settings = response;
         });
 

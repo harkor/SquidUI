@@ -1,6 +1,12 @@
 <!-- Navbar -->
 <div ng-include="'views/common/navbar.html'"></div>
 
+
+
+<div id="webcam-fullscreen" ng-show="settings.showFullScreen">
+<img ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" class="img-fluid" />
+</div>
+
 <div class="app-body">
     <!-- Navigation -->
     <div ng-include="'views/common/sidebar-nav.html'"></div>
@@ -48,7 +54,6 @@
         </div>
         <!-- /.conainer-fluid -->
     </main>
-
 
 </div>
 
