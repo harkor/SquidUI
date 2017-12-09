@@ -35,7 +35,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         //     // do something with the file contents
         // });
 
-        jQuery.get('http://yuno.makz.me/downloads/files/local/Acceleration_Test.gcode', function(response){
+        jQuery.get('http://192.168.1.114/downloads/files/local/Caps_Locker.gcode', function(response){
 
             var theFile = {
                 target : {
@@ -43,9 +43,11 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
                 }
             };
 
-            GCODE.gCodeReader.LoadFile(theFile);
+            GCODE.gCodeReader.loadFile(theFile);
 
         });
+
+
 
     }, 2000);
 
