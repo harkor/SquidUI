@@ -20,6 +20,8 @@ var grayLight =     '#818a91';
 var grayLighter =   '#d1d4d7';
 var grayLightest =  '#f8f9fa';
 
+var GCODE_WORKER;
+
 angular
 .module('app', [
   'ui.router',

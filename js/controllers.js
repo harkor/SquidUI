@@ -30,9 +30,15 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
         // octoPrint.socket.files.download("local", octoPrint.data.jobs.job.file.path)
         // .done(function(response) {
-        //     var contents = response;
-        //     console.log(response);
-        //     // do something with the file contents
+        //
+        //     var theFile = {
+        //         target : {
+        //             result : response
+        //         }
+        //     };
+        //
+        //     GCODE.gCodeReader.loadFile(theFile);
+        //
         // });
 
         jQuery.get(octoPrint.socket.options.baseurl +'/downloads/files/local/'+octoPrint.data.jobs.job.file.path, function(response){

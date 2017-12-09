@@ -11,6 +11,9 @@ function octoPrint($http, $q, __env){
     svc.host = __env.apiHost;
     svc.apiKey = __env.apiKey;
     svc.apiUrl = svc.host+"/api";
+    svc.appUrl = __env.appUrl;
+
+    GCODE_WORKER = svc.appUrl+"/static/gcode-viewer/js/Worker.js"
 
     svc.data = {
         settings : null,
