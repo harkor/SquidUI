@@ -35,7 +35,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         //     // do something with the file contents
         // });
 
-        jQuery.get('http://192.168.1.114/downloads/files/local/Caps_Locker.gcode', function(response){
+        jQuery.get(octoPrint.socket.options.baseurl +'/downloads/files/local/'+octoPrint.data.jobs.job.file.path, function(response){
 
             var theFile = {
                 target : {
@@ -46,8 +46,6 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             GCODE.gCodeReader.loadFile(theFile);
 
         });
-
-
 
     }, 2000);
 
