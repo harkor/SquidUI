@@ -618,6 +618,7 @@ GCODE.renderer = (function(){
         }
 
         if (modelInfo && renderOptions["zoomInOnModel"]) {
+
             // if we need to zoom in on model, scale factor is calculated by longer side of object in relation to that axis of canvas
             var width = modelInfo.boundingBox.maxX - modelInfo.boundingBox.minX;
             var length = modelInfo.boundingBox.maxY - modelInfo.boundingBox.minY;
@@ -700,7 +701,7 @@ GCODE.renderer = (function(){
 
                 dirty = true;
                 renderOptions[opt] = options[opt];
-                if ($.inArray(opt, ["moveModel", "centerViewport", "zoomInOnModel", "bed", "invertAxes"]) > -1) {
+                if ($.inArray(opt, ["moveModel", "centerViewport", "zoomInOnModel", "bed", "invertAxes", "zoomInOnBed"]) > -1) {
                     mustRefresh = true;
                 }
             }

@@ -98,6 +98,8 @@
                   <img ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" class="img-fluid" />
               </div>
 
+              <!-- {{octoprint.data.printerprofile}} -->
+
             </div>
 
         </div>
@@ -229,13 +231,63 @@
                       <div id="slider-vertical"></div>
                       <div id="slider-horizontal"></div>
                   </div>
-              </div>
-
-              <div class="card-body">
-                  {{ octoprint.data.gcodeviewer.progressStatus.type }}
+                  <br />
+                  <div class="gcode-progress-status">{{ octoprint.data.gcodeviewer.progressStatus.type | ucfirst }}</div>
                   <div class="progress progress-xs my-1">
                       <div class="progress-bar" ng-class="octoprint.data.gcodeviewer.progressStatus.progress != 0 && octoprint.data.gcodeviewer.progressStatus.progress != 100 ? 'progress-bar-striped progress-bar-animated' : ''" role="progressbar" aria-valuenow="{{ octoprint.data.gcodeviewer.progressStatus.progress | number: 1 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ octoprint.data.gcodeviewer.progressStatus.progress | number: 1 }}%"></div>
                   </div>
+
+                  <div class="row" style="margin-top:15px">
+                      <div class="col">
+                          <button ng-click="changeLayer(-1)" class="btn btn-primary btn-block">Previous layer</button>
+                      </div>
+                      <div class="col">
+                          <button ng-click="changeLayer(+1)" class="btn btn-primary btn-block">Next layer</button>
+                      </div>
+                  </div>
+
+                  <hr />
+
+                  <div>
+                      <label class="switch switch-default switch-primary">
+                          <input type="checkbox" class="switch-input" ng-model="octoprint.data.gcodeviewer.settings.sync">
+                          <span class="switch-label"></span>
+                          <span class="switch-handle"></span>
+                      </label> <strong ng-click="octoprint.data.gcodeviewer.settings.sync = !octoprint.data.gcodeviewer.settings.sync">Sync with job progress</strong>
+                  </div>
+
+                  <div>
+                      <label class="switch switch-default switch-primary">
+                          <input type="checkbox" class="switch-input" ng-model="octoprint.data.gcodeviewer.settings.showmoves">
+                          <span class="switch-label"></span>
+                          <span class="switch-handle"></span>
+                      </label> <strong ng-click="octoprint.data.gcodeviewer.settings.showmoves = !octoprint.data.gcodeviewer.settings.showmoves">Show moves</strong>
+                  </div>
+
+                  <div>
+                      <label class="switch switch-default switch-primary">
+                          <input type="checkbox" class="switch-input" ng-model="octoprint.data.gcodeviewer.settings.showretract">
+                          <span class="switch-label"></span>
+                          <span class="switch-handle"></span>
+                      </label> <strong ng-click="octoprint.data.gcodeviewer.settings.showretract = !octoprint.data.gcodeviewer.settings.showretract">Show retract</strong>
+                  </div>
+
+                  <div>
+                      <label class="switch switch-default switch-primary">
+                          <input type="checkbox" class="switch-input" ng-model="octoprint.data.gcodeviewer.settings.showprev">
+                          <span class="switch-label"></span>
+                          <span class="switch-handle"></span>
+                      </label> <strong ng-click="octoprint.data.gcodeviewer.settings.showprev = !octoprint.data.gcodeviewer.settings.showprev">Also show previous layer</strong>
+                  </div>
+
+                  <div>
+                      <label class="switch switch-default switch-primary">
+                          <input type="checkbox" class="switch-input" ng-model="octoprint.data.gcodeviewer.settings.shownext">
+                          <span class="switch-label"></span>
+                          <span class="switch-handle"></span>
+                      </label> <strong ng-click="octoprint.data.gcodeviewer.settings.shownext = !octoprint.data.gcodeviewer.settings.shownext">Also show next layer</strong>
+                  </div>
+
               </div>
 
             </div>

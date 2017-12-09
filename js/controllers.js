@@ -7,7 +7,10 @@ angular
 mainCtrl.$inject = ['$rootScope', '$scope', '$interval', 'octoPrint'];
 function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
-    $scope.$on('$viewContentLoaded', function(){
+    $scope.$on('$viewContentLoaded', function(event, viewName){
+
+        if(viewName == undefined) return;
+
         octoPrint.init();
 
         jQuery("#slider-horizontal").slider({
@@ -15,7 +18,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             range: "min",
             animate: false,
             slide : function(event, ui){
-                var nbrCmd = GCODE.renderer.getLayerNumSegments(0);
+                octoPrint.data.gcodeviewer.settings.sync = false;
                 GCODE.renderer.render($('#slider-vertical').slider('value'), 0, ui.value);
             }
         });
@@ -25,20 +28,10 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             range: "min",
             animate: false,
             slide : function(event, ui){
-
-                // var layer = ui.value + 2;
-                var layer = ui.value;
-
-                var nbrCmd = GCODE.renderer.getLayerNumSegments(layer);
-                jQuery("#slider-horizontal").slider( "option", "max", nbrCmd);
-                $('#slider-horizontal').slider('value', nbrCmd);
-
-                GCODE.renderer.render(layer, 0, nbrCmd);
-
+                octoPrint.data.gcodeviewer.settings.sync = false;
+                GCODE.ui.changeSelectedLayer(ui.value);
             }
         });
-
-
 
         jQuery(window).trigger('resize');
 
@@ -55,6 +48,14 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
     });
 
+    $scope.changeLayer = function(offset){
+
+        octoPrint.data.gcodeviewer.settings.sync = false;
+        var layer = octoPrint.data.gcodeviewer.currentLayer + offset;
+        GCODE.ui.changeSelectedLayer(layer);
+
+    };
+
     $scope.loadGCodeViewer = function(){
 
         GCODE.ui.init({
@@ -63,18 +64,29 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
                 octoPrint.data.gcodeviewer.progressStatus.type = type;
                 octoPrint.data.gcodeviewer.progressStatus.progress = progress;
             },
-            onModelLoaded : function(data){
 
-                jQuery("#slider-vertical").slider( "option", "max", data.layersPrinted-1);
-                jQuery("#slider-horizontal").slider( "option", "max", GCODE.renderer.getLayerNumSegments(0));
+            onModelLoaded : function(data){
+                jQuery("#slider-vertical").slider( "option", "max", GCODE.renderer.getModelNumLayers()-1);
+                jQuery("#slider-horizontal").slider( "option", "max", GCODE.renderer.getLayerNumSegments(0)-1);
                 jQuery("#slider-horizontal").slider( "value", GCODE.renderer.getLayerNumSegments(0)-1);
 
-                setTimeout(function(){
-                    GCODE.renderer.render(0, 0, jQuery("#slider-horizontal").slider('value'));
-                }, 100);
+                octoPrint.data.gcodeviewer.settings.sync = true;
 
+            },
+
+            onLayerSelected : function(data){
+
+                jQuery("#slider-horizontal").slider( "option", "max", data.commands);
+                $('#slider-horizontal').slider('value', data.commands);
+                $('#slider-vertical').slider('value', data.number);
+
+                octoPrint.data.gcodeviewer.currentLayer = data.number;
 
             }
+        });
+
+        GCODE.gCodeReader.setOption({
+            sortLayers : true
         });
 
     }
@@ -146,6 +158,13 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         if(jQuery('.terminal-body').length > 0 && $scope.settings.autoscroll == true){
             jQuery('.terminal-body')[0].scrollTop = jQuery('.terminal-body')[0].scrollHeight;
         }
+
+        GCODE.renderer.setOption({
+            showMoves : octoPrint.data.gcodeviewer.settings.showmoves,
+            showRetracts : octoPrint.data.gcodeviewer.settings.showretract,
+            showNextLayer : octoPrint.data.gcodeviewer.settings.shownext,
+            showPreviousLayer : octoPrint.data.gcodeviewer.settings.showprev
+        });
 
         return octoPrint;
     }
@@ -233,11 +252,5 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         $rootScope.showFullScreen = !$rootScope.showFullScreen;
 
     }
-
-    $scope.pouet = function(){
-
-        console.log('click!!!');
-    }
-
 
 }

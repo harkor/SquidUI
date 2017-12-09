@@ -45,6 +45,14 @@ function octoPrint($http, $q, __env){
             progressStatus : {
                 type : null,
                 progress : null
+            },
+            currentLayer : null,
+            settings: {
+                sync : false,
+                showmoves : true,
+                showretract : true,
+                shownext : false,
+                shownprev : false
             }
         },
     };
@@ -72,7 +80,7 @@ function octoPrint($http, $q, __env){
         svc.getTimelapses();
         svc.getPrinterState();
         svc.getSystemCommands();
-        svc.getPrinterProfiles();
+        // svc.getPrinterProfiles();
         svc.getConnectionSettings();
 
         svc.socket.socket.onMessage("*", function(message) {
@@ -103,15 +111,17 @@ function octoPrint($http, $q, __env){
                 //     // svc.gcodeviewer.loadFile(octoPrint.data.jobs.job.file.path);
                 // }
 
-                if(svc.data.printer.state.flags.printing === true){
+                if(svc.data.printer.state.flags.printing === true && svc.data.gcodeviewer.settings.sync === true){
 
                     var cmdIndex = GCODE.gCodeReader.getCmdIndexForPercentage(svc.data.jobs.progress.completion);
                     if (cmdIndex !== false && cmdIndex != undefined){
-                        
+
                         GCODE.renderer.render(cmdIndex.layer, 0, cmdIndex.cmd);
 
-                        // var toto = GCODE.renderer.getLayerNumSegments(cmdIndex.layer)-1; // choper le nbr de commandes par layer
-                        // console.log(toto);
+                        jQuery("#slider-horizontal").slider( "value", cmdIndex.cmd);
+                        jQuery("#slider-vertical").slider( "value", cmdIndex.layer);
+
+                        svc.data.gcodeviewer.currentLayer = cmdIndex.layer;
 
                     }
 
@@ -251,6 +261,16 @@ function octoPrint($http, $q, __env){
 
         svc.socket.printerprofiles.get(id).done(function(response){
             svc.data.printerprofile = response;
+
+            GCODE.renderer.setOption({
+                bed : {
+                    x : svc.data.printerprofile.volume.width,
+                    y : svc.data.printerprofile.volume.depth
+                },
+                zoomInOnBed : true,
+                centerViewport: true,
+            });
+
         });
 
     }
@@ -259,9 +279,7 @@ function octoPrint($http, $q, __env){
 
         svc.socket.connection.getSettings().done(function(response){
             svc.data.connection.settings = response;
-
             svc.getPrinterProfile(response.current.printerProfile);
-
         });
 
     }

@@ -32,7 +32,8 @@ angular
   'angularMoment',
   'ngFilesizeFilter',
   'filter.duration',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'angular.filter'
   // 'chart.js'
   // 'bd.sockjs'
   // 'ngWebsocket'

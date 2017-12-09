@@ -9011,3 +9011,9 @@ hr.transparent {
     right: 15px; }
   .gcode-container .ui-widget-header {
     background: #5dc3e7; }
+
+.gcode-progress-status {
+  font-weight: bold;
+  text-align: center;
+  font-size: 16px;
+  color: #20a8d8; }
