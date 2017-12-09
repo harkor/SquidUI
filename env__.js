@@ -2,11 +2,10 @@
   window.__env = window.__env || {};
 
   // API url
-  window.__env.apiHost = 'http://192.168.1.114';
+  window.__env.apiHost = 'http://yuno.makz.me';
 
   // Base url
-  // window.__env.apiKey = 'trolololol';
-  window.__env.apiKey = 'AE073DB1CB6644AABAA3FA7494483A35'; // Harkor user
+  window.__env.apiKey = '77498695A08C4B7DBDC6CA000CFF929B';
 
   // Whether or not to enable debug mode
   // Setting this to false will disable console output

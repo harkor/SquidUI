@@ -21,6 +21,10 @@
     <title>OctoPouet</title>
 
     <!-- Main styles for this application -->
+
+
+    <link rel="stylesheet" type="text/css" href="static/gcode-viewer/lib/codemirror.css" media="screen" />
+    <!-- <link rel="stylesheet" href="bower_components/gcode-viewer/css/style.css"> -->
     <link href="css/style.css" rel="stylesheet">
 
 </head>
@@ -62,7 +66,7 @@
 
     <script src="bower_components/sockjs/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-    <script src="ext_lib/octoprint_packed_client.js" charset="utf-8"></script>
+    <script src="static/octoprint_packed_client.js" charset="utf-8"></script>
 
     <!-- AngularJS -->
     <script src="bower_components/angular/angular.min.js"></script>
@@ -79,6 +83,18 @@
     <script src="bower_components/angular-duration-filter-formatter/src/duration.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- GCODE VIEWER -->
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="static/gcode-viewer/lib/codemirror.js"></script>
+    <script type="text/javascript" src="static/gcode-viewer/lib/mode_gcode/gcode_mode.js"></script>
+    <script type="text/javascript" src="static/gcode-viewer/lib/three.js"></script>
+    <script type="text/javascript" src="static/gcode-viewer/lib/TrackballControls.js"></script>
+    <script type="text/javascript" src="static/gcode-viewer/js/ui.js"></script>
+    <script type="text/javascript" src="static/gcode-viewer/js/gCodeReader.js"></script>
+    <script type="text/javascript" src="static/gcode-viewer/js/renderer.js"></script>
+    <!-- <script type="text/javascript" src="bower_components/gcode-viewer/js/renderer3d.js"></script> -->
 
 
     <!-- AngularJS CoreUI App scripts -->

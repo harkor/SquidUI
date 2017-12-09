@@ -22,6 +22,34 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         });
     });
 
+    setTimeout(function(){
+
+        GCODE.ui.init({
+            container: '#canvas'
+        });
+
+        // octoPrint.socket.files.download("local", octoPrint.data.jobs.job.file.path)
+        // .done(function(response) {
+        //     var contents = response;
+        //     console.log(response);
+        //     // do something with the file contents
+        // });
+
+        jQuery.get('http://yuno.makz.me/downloads/files/local/Acceleration_Test.gcode', function(response){
+
+            var theFile = {
+                target : {
+                    result : response
+                }
+            };
+
+            GCODE.gCodeReader.LoadFile(theFile);
+
+        });
+
+    }, 2000);
+
+
     $scope.login = {
         user : null,
         pass: null
