@@ -40,7 +40,13 @@ function octoPrint($http, $q, __env){
         connection : {
             settings : null
         },
-        printerpofile : null
+        printerpofile : null,
+        gcodeviewer : {
+            progressStatus : {
+                type : null,
+                progress : null
+            }
+        },
     };
 
     svc.socket = OctoPrint;
@@ -92,6 +98,24 @@ function octoPrint($http, $q, __env){
 
                 if(message.data.temps.length > 0) svc.setTemp(message.data.temps[0]);
                 if(svc.data.jobs.progress.completion == null) svc.data.jobs.progress.completion = 0;
+
+                // if(octoPrint.data.jobs.job != null){
+                //     // svc.gcodeviewer.loadFile(octoPrint.data.jobs.job.file.path);
+                // }
+
+                if(svc.data.printer.state.flags.printing === true){
+
+                    var cmdIndex = GCODE.gCodeReader.getCmdIndexForPercentage(svc.data.jobs.progress.completion);
+                    if (cmdIndex !== false && cmdIndex != undefined){
+                        
+                        GCODE.renderer.render(cmdIndex.layer, 0, cmdIndex.cmd);
+
+                        // var toto = GCODE.renderer.getLayerNumSegments(cmdIndex.layer)-1; // choper le nbr de commandes par layer
+                        // console.log(toto);
+
+                    }
+
+                }
 
             }
 
@@ -342,6 +366,24 @@ function octoPrint($http, $q, __env){
             });
 
         }
+
+    }
+
+    svc.gcodeviewer = {};
+
+    svc.gcodeviewer.loadFile = function(file){
+
+        jQuery.get(svc.socket.options.baseurl +'/downloads/files/local/'+file, function(response){
+
+            var theFile = {
+                target : {
+                    result : response
+                }
+            };
+
+            GCODE.gCodeReader.loadFile(theFile);
+
+        });
 
     }
 

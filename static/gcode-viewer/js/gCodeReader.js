@@ -147,6 +147,7 @@ GCODE.gCodeReader = (function(){
             reader.target.result = null;
             prepareGCode(totalSize);
 
+
             GCODE.ui.worker.postMessage({
                     "cmd":"parseGCode",
                     "msg":{

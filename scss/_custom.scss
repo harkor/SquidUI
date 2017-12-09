@@ -133,3 +133,24 @@
 
     }
 }
+
+.gcode-container {
+
+    position: relative;
+
+    #slider-horizontal {
+        margin-right: 40px;
+        margin-left: 15px
+    }
+
+    #slider-vertical {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    .ui-widget-header {
+        background: lighten($brand-primary, 15%);
+    }
+
+}

@@ -4,7 +4,7 @@
  * Time: 7:45 AM
  */
 
-var GCODE_WORKER = "/static/gcode-viewer/js/Worker.js";
+// var GCODE_WORKER = "/static/gcode-viewer/js/Worker.js";
 
 var GCODE = {};
 
@@ -19,9 +19,11 @@ GCODE.ui = (function(){
     };
 
     var setProgress = function(type, progress) {
+
         if (uiOptions["onProgress"]) {
             uiOptions.onProgress(type, progress);
         }
+        
     };
 
     var switchLayer = function(layerNum, onlyInfo) {
@@ -94,42 +96,6 @@ GCODE.ui = (function(){
         }
     };
 
-    var checkCapabilities = function(){
-        var warnings = [];
-        var fatal = [];
-
-        Modernizr.addTest('filereader', function () {
-            return !!(window.File && window.FileList && window.FileReader);
-        });
-
-        if(!Modernizr.canvas)fatal.push("<li>Your browser doesn't seem to support HTML5 Canvas, this application won't work without it.</li>");
-        if(!Modernizr.webworkers)fatal.push("<li>Your browser doesn't seem to support HTML5 Web Workers, this application won't work without it.</li>");
-        if(!Modernizr.svg)fatal.push("<li>Your browser doesn't seem to support HTML5 SVG, this application won't work without it.</li>");
-
-        var errorList = document.getElementById("errorList");
-        if(fatal.length>0){
-            if (errorList) {
-                errorList.innerHTML = '<ul>' + fatal.join('') + '</ul>';
-            }
-            console.log("Initialization failed: unsupported browser.")
-            return false;
-        }
-
-        if(!Modernizr.webgl && GCODE.renderer3d){
-            warnings.push("<li>Your browser doesn't seem to support HTML5 Web GL, 3d mode is not recommended, going to be SLOW!</li>");
-            GCODE.renderer3d.setOption({rendererType: "canvas"});
-        }
-        if(!Modernizr.draganddrop)warnings.push("<li>Your browser doesn't seem to support HTML5 Drag'n'Drop, Drop area will not work.</li>");
-
-        if(warnings.length>0){
-            if (errorList) {
-                errorList.innerHTML = '<ul>' + warnings.join('') + '</ul>';
-            }
-            console.log("Initialization succeeded with warnings.", warnings);
-        }
-        return true;
-    };
-
     var setOptions = function(options) {
         if (!options) return;
         for (var opt in options) {
@@ -147,11 +113,6 @@ GCODE.ui = (function(){
             if (!options.container) {
                 return false;
             }
-
-            // var capabilitiesResult = checkCapabilities();
-            // if (!capabilitiesResult) {
-            //     return false;
-            // }
 
             setProgress("", 0);
 

@@ -7,54 +7,88 @@ angular
 mainCtrl.$inject = ['$rootScope', '$scope', '$interval', 'octoPrint'];
 function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
-    // setTimeout(function(){
-    //     jQuery('#loginModal').modal('show');
-    // }, 500);
+    $scope.$on('$viewContentLoaded', function(){
+        octoPrint.init();
 
-    octoPrint.init();
-    // octoPrint.run();
+        jQuery("#slider-horizontal").slider({
+            orientation: "horizontal",
+            range: "min",
+            animate: false,
+            slide : function(event, ui){
+                var nbrCmd = GCODE.renderer.getLayerNumSegments(0);
+                GCODE.renderer.render($('#slider-vertical').slider('value'), 0, ui.value);
+            }
+        });
 
-    jQuery(window).trigger('resize');
+        jQuery("#slider-vertical").slider({
+            orientation: "vertical",
+            range: "min",
+            animate: false,
+            slide : function(event, ui){
+
+                // var layer = ui.value + 2;
+                var layer = ui.value;
+
+                var nbrCmd = GCODE.renderer.getLayerNumSegments(layer);
+                jQuery("#slider-horizontal").slider( "option", "max", nbrCmd);
+                $('#slider-horizontal').slider('value', nbrCmd);
+
+                GCODE.renderer.render(layer, 0, nbrCmd);
+
+            }
+        });
+
+
+
+        jQuery(window).trigger('resize');
+
+    });
+
     jQuery(window).resize(function(event) {
+
         jQuery('#webcam-fullscreen img').css({
             'min-width' : jQuery(window).width()+"px",
             'min-height' : jQuery(window).height()+"px"
         });
+
+        jQuery("#slider-vertical").css({ height : jQuery('#slider-horizontal').width()+"px" });
+
     });
 
-    setTimeout(function(){
+    $scope.loadGCodeViewer = function(){
 
         GCODE.ui.init({
-            container: '#canvas'
+            container: '#canvas',
+            onProgress : function(type, progress){
+                octoPrint.data.gcodeviewer.progressStatus.type = type;
+                octoPrint.data.gcodeviewer.progressStatus.progress = progress;
+            },
+            onModelLoaded : function(data){
+
+                jQuery("#slider-vertical").slider( "option", "max", data.layersPrinted-1);
+                jQuery("#slider-horizontal").slider( "option", "max", GCODE.renderer.getLayerNumSegments(0));
+                jQuery("#slider-horizontal").slider( "value", GCODE.renderer.getLayerNumSegments(0)-1);
+
+                setTimeout(function(){
+                    GCODE.renderer.render(0, 0, jQuery("#slider-horizontal").slider('value'));
+                }, 100);
+
+
+            }
         });
 
-        // octoPrint.socket.files.download("local", octoPrint.data.jobs.job.file.path)
-        // .done(function(response) {
-        //
-        //     var theFile = {
-        //         target : {
-        //             result : response
-        //         }
-        //     };
-        //
-        //     GCODE.gCodeReader.loadFile(theFile);
-        //
-        // });
+    }
 
-        jQuery.get(octoPrint.socket.options.baseurl +'/downloads/files/local/'+octoPrint.data.jobs.job.file.path, function(response){
-
-            var theFile = {
-                target : {
-                    result : response
-                }
-            };
-
-            GCODE.gCodeReader.loadFile(theFile);
-
-        });
-
-    }, 2000);
-
+    $scope.$watch(
+        function(){
+            if(octoPrint.data.jobs.job == null) return false;
+            else return octoPrint.data.jobs.job.file.path;
+        }, function(value){
+            if(value !== false){
+                octoPrint.gcodeviewer.loadFile(value);
+            }
+        }
+    );
 
     $scope.login = {
         user : null,

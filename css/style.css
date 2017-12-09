@@ -8999,3 +8999,15 @@ hr.transparent {
         margin: 5px; }
   .file-manager-list-container .file-manager-list .file-manager-item.folder .file-manager-item-name {
     cursor: pointer; }
+
+.gcode-container {
+  position: relative; }
+  .gcode-container #slider-horizontal {
+    margin-right: 40px;
+    margin-left: 15px; }
+  .gcode-container #slider-vertical {
+    position: absolute;
+    top: 15px;
+    right: 15px; }
+  .gcode-container .ui-widget-header {
+    background: #5dc3e7; }
