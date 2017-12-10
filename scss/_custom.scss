@@ -82,9 +82,15 @@
     max-height: 270px;
     overflow-y: auto;
 
+
     .file-manager-list {
 
-        .file-manager-item {
+        .back {
+            cursor: pointer;
+        }
+
+        .file-manager-item,
+        .back {
 
             border-bottom: 1px solid #aaa;
             padding: 5px;
@@ -123,6 +129,11 @@
                 }
             }
 
+        }
+
+        .file-manager-item:hover,
+        .back:hover {
+            background: rgba(255,255,255,.1);
         }
 
         .file-manager-item.folder {

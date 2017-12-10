@@ -7,6 +7,44 @@ angular
 mainCtrl.$inject = ['$rootScope', '$scope', '$interval', 'octoPrint'];
 function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
+    $scope.fileManager = {
+        selected : null,
+        selectedParent: null,
+        currentPath : null,
+    }
+
+    $scope.fileManager.open = function(folder){
+        $scope.fileManager.selected = folder.children;
+        $scope.fileManager.currentPath = folder.path;
+    }
+
+    $scope.fileManager.deleteFile = function(file, index){
+
+        // $scope.fileManager.selected.splice(index, 1);
+        octoPrint.deleteFile(file);
+
+    }
+
+    $scope.fileManager.navigateUp = function(){
+
+        findParent(octoPrint.data.files.files, $scope.fileManager.currentPath);
+
+    }
+
+    function findParent(files, search){
+
+        if(files.length > 0){
+            _.each(files, function(file, key){
+                parent = file;
+                if(file.children != undefined){
+                    if(file.path == search) $scope.fileManager.open(file.parent);
+                    findParent(file.children, search);
+                }
+            });
+        }
+
+    }
+
     $scope.$on('$viewContentLoaded', function(event, viewName){
 
         if(viewName == undefined) return;
@@ -166,6 +204,11 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             showPreviousLayer : octoPrint.data.gcodeviewer.settings.showprev
         });
 
+        if($scope.fileManager.selected == null && octoPrint.data.files != null){
+            $scope.fileManager.selected = octoPrint.data.files.files;
+            console.log($scope.fileManager.selected);
+        }
+
         return octoPrint;
     }
 
@@ -178,12 +221,6 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
         $scope.octoprint.sendGCode([$scope.terminal.gcode], true);
         $scope.terminal.gcode = "";
-
-    }
-
-    $scope.loadTerminalCmd = function(event){
-
-        // Soon
 
     }
 

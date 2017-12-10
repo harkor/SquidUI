@@ -8974,29 +8974,42 @@ hr.transparent {
 .file-manager-list-container {
   max-height: 270px;
   overflow-y: auto; }
-  .file-manager-list-container .file-manager-list .file-manager-item {
+  .file-manager-list-container .file-manager-list .back {
+    cursor: pointer; }
+  .file-manager-list-container .file-manager-list .file-manager-item,
+  .file-manager-list-container .file-manager-list .back {
     border-bottom: 1px solid #aaa;
     padding: 5px; }
-    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name {
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name,
+    .file-manager-list-container .file-manager-list .back .file-manager-item-name {
       display: block;
       text-overflow: ellipsis;
       word-break: break-all; }
-    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name.loaded-file {
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name.loaded-file,
+    .file-manager-list-container .file-manager-list .back .file-manager-item-name.loaded-file {
       font-weight: bold; }
-    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-date {
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-date,
+    .file-manager-list-container .file-manager-list .back .file-manager-item-date {
       display: block; }
-    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-size {
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-size,
+    .file-manager-list-container .file-manager-list .back .file-manager-item-size {
       display: block;
       float: left; }
-    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item {
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item,
+    .file-manager-list-container .file-manager-list .back .file-manager-item {
       padding-left: 10px; }
-    .file-manager-list-container .file-manager-list .file-manager-item .btn-group {
+    .file-manager-list-container .file-manager-list .file-manager-item .btn-group,
+    .file-manager-list-container .file-manager-list .back .btn-group {
       float: right; }
-      .file-manager-list-container .file-manager-list .file-manager-item .btn-group .btn {
+      .file-manager-list-container .file-manager-list .file-manager-item .btn-group .btn,
+      .file-manager-list-container .file-manager-list .back .btn-group .btn {
         font-size: 12px;
         margin: 0 5px;
         padding: 5px;
         margin: 5px; }
+  .file-manager-list-container .file-manager-list .file-manager-item:hover,
+  .file-manager-list-container .file-manager-list .back:hover {
+    background: rgba(255, 255, 255, 0.1); }
   .file-manager-list-container .file-manager-list .file-manager-item.folder .file-manager-item-name {
     cursor: pointer; }
 

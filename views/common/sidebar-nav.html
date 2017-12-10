@@ -49,7 +49,11 @@
             <input type="text" ng-model="searchFile.name" class="form-control" placeholder="Search..." />
             <div class="file-manager-list-container">
                 <div class="file-manager-list">
-                    <div class="file-manager-item" ng-class="file.type == 'folder' ? 'folder':''" ng-repeat="file in octoprint.data.files.files | orderBy : ['children.length', 'name'] | searchFileManager : searchFile">
+                    <div class="back" ng-if="fileManager.currentPath" ng-click="fileManager.navigateUp()">
+                        <i class="fa fa-arrow-left"></i> Back<br />
+                        <small>Currently in {{ fileManager.currentPath }}</small>
+                    </div>
+                    <div class="file-manager-item" ng-class="file.type == 'folder' ? 'folder':''" ng-repeat="file in fileManager.selected | orderBy : ['children.length', 'name'] | searchFileManager : searchFile">
                         <ng-include src="'views/partials/list-files-item.html'"></ng-include>
                     </div>
                 </div>
