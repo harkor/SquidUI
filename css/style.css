@@ -8941,6 +8941,26 @@ hr.transparent {
 .log-item {
   display: block; }
 
+#dragandrophandler {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1030;
+  text-align: center;
+  font-weight: bold;
+  font-size: 100px;
+  color: #fff; }
+  #dragandrophandler > span {
+    display: table-cell; }
+
+.drag #dragandrophandler {
+  display: table;
+  pointer-events: none; }
+
 .sidebar-nav h1 {
   font-size: 16px;
   padding: 0 15px;
@@ -9051,3 +9071,6 @@ hr.transparent {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }
+
+.progress-upload {
+  margin-top: 20px; }

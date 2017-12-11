@@ -237,7 +237,7 @@ function octoPrint($http, $q, __env){
     svc.getTimelapses = function(){
 
         svc.socket.timelapse.get().done(function(response){
-            console.log(response);
+            // console.log(response);
             svc.data.timelapses = response;
         });
 
@@ -304,7 +304,7 @@ function octoPrint($http, $q, __env){
         return svc.socket.connection.getSettings().done(function(response){
             svc.getPrinterProfile(response.current.printerProfile);
             svc.data.connection.settings = response;
-            console.log(response);
+            // console.log(response);
             return response;
         });
 
@@ -453,8 +453,10 @@ function octoPrint($http, $q, __env){
 
         if(subFolder != null && subFolder != false) data.filename = subFolder+"/"+file.name;
 
-        svc.socket.files.upload("local", file, data).done(function(response){
+        return svc.socket.files.upload("local", file, data).done(function(response){
             svc.getFiles();
+        }).progress(function(response){
+            // console.log(response);
         });
 
     }

@@ -12,6 +12,10 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         selectedParent: null,
         currentPath : null,
         fileupload : null,
+        progress : {
+            loaded : 0,
+            total : null
+        }
     };
 
     $scope.connection = {
@@ -64,7 +68,10 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         var _val = _this.val();
 
         if(_val != ''){
-            octoPrint.uploadFile($scope.fileManager.fileupload, $scope.fileManager.currentPath);
+            octoPrint.uploadFile($scope.fileManager.fileupload, $scope.fileManager.currentPath).progress(function(response){
+                $scope.fileManager.progress.loaded = (response.loaded/response.total)*100;
+                $scope.fileManager.progress.total = "100";
+            });
         }
 
     });
@@ -98,6 +105,44 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         });
 
         jQuery(window).trigger('resize');
+
+        /* DRAG & DROP */
+        $(document).on('dragenter', function (e){
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        $(document).on('dragover', function (e){
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        $(document).on('drop', function (e){
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        $('body').on('drop', function (e){
+
+            $('body').removeClass('drag');
+
+            var file = e.originalEvent.dataTransfer.files[0];
+            octoPrint.uploadFile(file, $scope.fileManager.currentPath).progress(function(response){
+                $scope.fileManager.progress.loaded = (response.loaded/response.total)*100;
+                $scope.fileManager.progress.total = "100";
+            });
+
+        });
+
+        $(document).draghover().on({
+          'draghoverstart': function() {
+              $('body').addClass('drag');
+          },
+          'draghoverend': function() {
+              $('body').removeClass('drag');
+          }
+        });
+        /* DRAG & DROP END */
 
     });
 
@@ -163,7 +208,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             if(octoPrint.data.jobs.job == null) return false;
             else return octoPrint.data.jobs.job.file.path;
         }, function(value){
-            if(value !== false){
+            if(value !== false && value != null){
                 octoPrint.gcodeviewer.loadFile(value);
             }
         }
@@ -252,11 +297,6 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
         return octoPrint;
     }
-
-    // $interval(octoPrint.getPrinterState, 5000);
-    setTimeout(function(){
-        // $scope.$apply();
-    }, 2000);
 
     $scope.sendGcode = function(){
 
