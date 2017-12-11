@@ -114,6 +114,8 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
     $scope.loadGCodeViewer = function(){
 
+        octoPrint.data.gcodeviewer.loaded = true;
+
         GCODE.ui.init({
             container: '#canvas',
             onProgress : function(type, progress){
@@ -144,6 +146,8 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         GCODE.gCodeReader.setOption({
             sortLayers : true
         });
+
+        octoPrint.gcodeviewer.loadFile(octoPrint.data.jobs.job.file.path);
 
     }
 

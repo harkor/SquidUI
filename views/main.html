@@ -221,11 +221,16 @@
 
             </div>
 
-            <div class="card" ng-init="loadGCodeViewer()">
+            <!-- <div class="card" ng-init="loadGCodeViewer()"> -->
+            <div class="card">
               <div class="card-header">
                 <i class="fa fa-thermometer-quarter"></i> GCode Viewer
               </div>
-              <div class="card-body">
+              <div class="card-body" ng-hide="octoprint.data.gcodeviewer.loaded">
+                  <button ng-click="loadGCodeViewer()" class="btn btn-primary btn-block">Load Gcode</button>
+              </div>
+              <div class="card-body" ng-show="octoprint.data.gcodeviewer.loaded">
+
                   <div class="gcode-container">
                       <canvas id="canvas" width="400" height="400"></canvas>
                       <div id="slider-vertical"></div>

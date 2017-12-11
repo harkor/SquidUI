@@ -42,6 +42,7 @@ function octoPrint($http, $q, __env){
         },
         printerpofile : null,
         gcodeviewer : {
+            loaded : false,
             progressStatus : {
                 type : null,
                 progress : null
@@ -399,7 +400,11 @@ function octoPrint($http, $q, __env){
                 }
             };
 
-            GCODE.gCodeReader.loadFile(theFile);
+            try {
+                GCODE.gCodeReader.loadFile(theFile);
+            } catch(e){
+                // console.log(e);
+            }
 
         });
 
