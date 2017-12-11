@@ -129,7 +129,6 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
                 jQuery("#slider-horizontal").slider( "value", GCODE.renderer.getLayerNumSegments(0)-1);
 
                 octoPrint.data.gcodeviewer.settings.sync = true;
-
             },
 
             onLayerSelected : function(data){
