@@ -10,6 +10,7 @@ angular
 .directive('toggle', bootstrapTooltipsPopoversDirective)
 .directive('tab', bootstrapTabsDirective)
 .directive('button', cardCollapseDirective)
+.directive('fileModel', fileModel)
 
 //Prevent click if href="#"
 function preventClickDirective() {
@@ -224,3 +225,23 @@ function cardCollapseDirective() {
     }
   }
 }
+
+fileModel.$inject = ['$parse'];
+function fileModel($parse){
+// .directive("fileread", [function () {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+
+          var model = $parse(attrs.fileModel);
+          var modelSetter = model.assign;
+
+          element.bind('change', function(){
+             scope.$apply(function(){
+                modelSetter(scope, element[0].files[0]);
+             });
+          });
+       }
+    };
+}
+// }]);

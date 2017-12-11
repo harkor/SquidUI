@@ -58,8 +58,20 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <br />
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-block btn-primary" ng-click="ShowCreateFolderModal()">Create folder...</button>
+                </div>
+                <div class="col">
+                    <span class="btn btn-block btn-primary btn-upload">
+                        Upload
+                        <input type="file" id="fileupload" accept=".gcode,.gco,.g" file-model="fileManager.fileupload" />
+                    </span>
+                </div>
+            </div>
 
+        </div>
 
     </nav>
 </div>

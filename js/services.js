@@ -191,7 +191,7 @@ function octoPrint($http, $q, __env){
 
     svc.deleteFile = function(file){
 
-        svc.socket.files.delete('local', file.path, print).done(function(response){
+        svc.socket.files.delete('local', file.path).done(function(response){
             svc.getFiles();
         });
 
@@ -401,6 +401,30 @@ function octoPrint($http, $q, __env){
 
             GCODE.gCodeReader.loadFile(theFile);
 
+        });
+
+    }
+
+    svc.createFolder = function(folderName, subFolder){
+        if(subFolder){
+            svc.socket.files.createFolder('local', folderName, subFolder).done(function(response){
+                svc.getFiles();
+            });
+        } else {
+            svc.socket.files.createFolder('local', folderName).done(function(response){
+                svc.getFiles();
+            });
+        }
+    }
+
+    svc.uploadFile = function(file, subFolder){
+
+        var data = {};
+
+        if(subFolder != null && subFolder != false) data.filename = subFolder+"/"+file.name;
+
+        svc.socket.files.upload("local", file, data).done(function(response){
+            svc.getFiles();
         });
 
     }

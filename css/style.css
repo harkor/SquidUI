@@ -9030,3 +9030,18 @@ hr.transparent {
   text-align: center;
   font-size: 16px;
   color: #20a8d8; }
+
+.btn-upload {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer; }
+
+.btn-upload input[type=file] {
+  opacity: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer; }

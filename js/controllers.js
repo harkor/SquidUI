@@ -11,6 +11,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         selected : null,
         selectedParent: null,
         currentPath : null,
+        fileupload : null,
     }
 
     $scope.fileManager.open = function(folder){
@@ -18,17 +19,24 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         $scope.fileManager.currentPath = folder.path;
     }
 
+    $scope.fileManager.goToPath = function(path){
+
+        _.each(octoPrint.data.files.files, function(file, key){
+
+            if(file.path == path) $scope.fileManager.open(file);
+
+        });
+
+    }
+
     $scope.fileManager.deleteFile = function(file, index){
 
-        // $scope.fileManager.selected.splice(index, 1);
         octoPrint.deleteFile(file);
 
     }
 
     $scope.fileManager.navigateUp = function(){
-
         findParent(octoPrint.data.files.files, $scope.fileManager.currentPath);
-
     }
 
     function findParent(files, search){
@@ -44,6 +52,16 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         }
 
     }
+
+    jQuery('body').on('change', '#fileupload', function(){
+        var _this = $(this);
+        var _val = _this.val();
+
+        if(_val != ''){
+            octoPrint.uploadFile($scope.fileManager.fileupload, $scope.fileManager.currentPath);
+        }
+
+    });
 
     $scope.$on('$viewContentLoaded', function(event, viewName){
 
@@ -204,9 +222,9 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             showPreviousLayer : octoPrint.data.gcodeviewer.settings.showprev
         });
 
-        if($scope.fileManager.selected == null && octoPrint.data.files != null){
+        if(octoPrint.data.files != null){
             $scope.fileManager.selected = octoPrint.data.files.files;
-            console.log($scope.fileManager.selected);
+            if($scope.fileManager.currentPath != null) $scope.fileManager.goToPath($scope.fileManager.currentPath);
         }
 
         return octoPrint;
@@ -258,6 +276,16 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         jQuery('#confirmModal').modal('hide');
     }
 
+    $scope.ShowCreateFolderModal = function(){
+        jQuery('#createFolderModal').modal('show');
+    }
+
+    $scope.createFolder = function(folderName){
+
+        jQuery('#createFolderModal').modal('hide');
+        octoPrint.createFolder(folderName, $scope.fileManager.currentPath);
+
+    }
 
     $scope.hideLine = function(string){
 
