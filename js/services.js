@@ -237,7 +237,16 @@ function octoPrint($http, $q, __env){
     svc.getTimelapses = function(){
 
         svc.socket.timelapse.get().done(function(response){
+            console.log(response);
             svc.data.timelapses = response;
+        });
+
+    }
+
+    svc.deleteTimelapse = function(file){
+
+        svc.socket.timelapse.delete(file.name).done(function(){
+            svc.getTimelapses();
         });
 
     }

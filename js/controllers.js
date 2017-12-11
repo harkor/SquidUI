@@ -355,4 +355,10 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
     }
 
+    $scope.deleteTimelapse = function(timelapse){
+
+        octoPrint.deleteTimelapse(timelapse);
+
+    }
+
 }

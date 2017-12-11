@@ -9045,3 +9045,9 @@ hr.transparent {
   top: 0;
   left: 0;
   cursor: pointer; }
+
+.timelapse-line td.timelapse-name {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }

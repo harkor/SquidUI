@@ -33,7 +33,8 @@ angular
   'ngFilesizeFilter',
   'filter.duration',
   'ui.bootstrap',
-  'angular.filter'
+  'angular.filter',
+  'angularUtils.directives.dirPagination',
   // 'chart.js'
   // 'bd.sockjs'
   // 'ngWebsocket'

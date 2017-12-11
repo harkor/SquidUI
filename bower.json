@@ -22,7 +22,8 @@
     "angular-moment": "^1.2.0",
     "angular-duration-filter-formatter": "^1.0.1",
     "angular-bootstrap": "^2.5.0",
-    "angular-filter": "^0.5.17"
+    "angular-filter": "^0.5.17",
+    "angularUtils-pagination": "angular-utils-pagination#^0.11.1"
   },
   "private": true
 }
