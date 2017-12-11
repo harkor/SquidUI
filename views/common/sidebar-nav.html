@@ -6,6 +6,41 @@
             </li>
         </ul> -->
 
+        <h1><i class="fa fa-signal fa-fw"></i>Connection</h1>
+        <div class="margins">
+            <form ng-submit="launchConnect()" ng-show="octoprint.data.connection.settings.current.state != 'Operational'">
+                <div class="form-group">
+                    <label>Serial Port</label>
+                    <select ng-model="connection.serialPort" class="form-control">
+                        <option value="">Auto</option>
+                        <option ng-repeat="port in octoprint.data.connection.settings.options.ports" value="{{port}}">{{port}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Baudrate</label>
+                    <select ng-model="connection.baudrate" class="form-control">
+                        <option value="">Auto</option>
+                        <option ng-repeat="baudrate in octoprint.data.connection.settings.options.baudrates" value="{{baudrate}}">{{baudrate}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Printer profile</label>
+                    <select ng-model="connection.printerProfile" class="form-control">
+                        <option ng-repeat="printerProfile in octoprint.data.connection.settings.options.printerProfiles" value="{{printerProfile.id}}">{{printerProfile.name}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-block" value="Connect" />
+                </div>
+            </form>
+
+            <button ng-click="octoprint.disconnect()" class="btn btn-primary btn-block"  ng-show="octoprint.data.connection.settings.current.state == 'Operational'">Disconnect</button>
+        </div>
+
+
         <h1><i class="fa fa-info fa-fw"></i>State</h1>
 
         <ul class="state-list margins">

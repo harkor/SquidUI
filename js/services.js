@@ -146,6 +146,20 @@ function octoPrint($http, $q, __env){
 
     }
 
+    svc.connect = function(data){
+
+        svc.socket.connection.connect(data).done(function(){
+            svc.run();
+        });
+
+    }
+
+    svc.disconnect = function(){
+        svc.socket.connection.disconnect().done(function(){
+            svc.getConnectionSettings();
+        });
+    }
+
     svc.login = function(user, pass){
 
         return OctoPrint.browser.login(user, pass, true).done(function(response) {
@@ -278,9 +292,11 @@ function octoPrint($http, $q, __env){
 
     svc.getConnectionSettings = function(){
 
-        svc.socket.connection.getSettings().done(function(response){
-            svc.data.connection.settings = response;
+        return svc.socket.connection.getSettings().done(function(response){
             svc.getPrinterProfile(response.current.printerProfile);
+            svc.data.connection.settings = response;
+            console.log(response);
+            return response;
         });
 
     }

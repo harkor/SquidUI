@@ -12,7 +12,13 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         selectedParent: null,
         currentPath : null,
         fileupload : null,
-    }
+    };
+
+    $scope.connection = {
+        serialPort : null,
+        baudrate : null,
+        printerProfile : null,
+    };
 
     $scope.fileManager.open = function(folder){
         $scope.fileManager.selected = folder.children;
@@ -66,6 +72,8 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
     $scope.$on('$viewContentLoaded', function(event, viewName){
 
         if(viewName == undefined) return;
+
+        if(viewName.viewDecl.templateUrl != "views/main.html") return;
 
         octoPrint.init();
 
@@ -230,6 +238,18 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             if($scope.fileManager.currentPath != null) $scope.fileManager.goToPath($scope.fileManager.currentPath);
         }
 
+        if(octoPrint.data.connection.settings != undefined && octoPrint.data.connection.settings.current.state != "Operational" && $scope.connection.serialPort == null){
+
+            $scope.connection.serialPort = octoPrint.data.connection.settings.options.portPreference;
+            $scope.connection.baudrate = octoPrint.data.connection.settings.options.baudratePreference.toString();
+            $scope.connection.printerProfile = octoPrint.data.connection.settings.options.printerProfilePreference;
+
+        } else if(octoPrint.data.connection.settings != undefined && octoPrint.data.connection.settings.current.state == "Operational" && $scope.connection.serialPort == null){
+            $scope.connection.serialPort = octoPrint.data.connection.settings.current.port;
+            $scope.connection.baudrate = octoPrint.data.connection.settings.current.baudrate.toString();
+            $scope.connection.printerProfile = octoPrint.data.connection.settings.current.printerProfile;
+        }
+
         return octoPrint;
     }
 
@@ -318,6 +338,20 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
     $scope.setFullScreen = function(){
 
         $rootScope.showFullScreen = !$rootScope.showFullScreen;
+
+    }
+
+    $scope.launchConnect = function(){
+
+        var data = {
+            port : $scope.connection.serialPort,
+            baudrate : parseInt($scope.connection.baudrate),
+            printerProfile : $scope.connection.printerProfile,
+            save : true,
+            autoconnect: true
+        };
+
+        octoPrint.connect(data);
 
     }
 
