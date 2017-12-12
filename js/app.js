@@ -57,22 +57,6 @@ angular
 // .constant('moment', require('moment-timezone'));
 ;
 
-// if (!angular.merge) {
-//
-//     angular.merge = (function mergePollyfill() {
-//         function setHashKey(obj, h) {
-//             if (h) {
-//                 obj.$$hashKey = h;
-//             } else {
-//                 delete obj.$$hashKey;
-//             }
-//         }
-//     });
-//
-//
-//
-// }
-
 
 $.fn.draghover = function(options) {
   return this.each(function() {

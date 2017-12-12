@@ -329,18 +329,56 @@ function octoPrint($http, $q, __env){
 
             if(device == 'time') return;
 
-            if(device == 'bed' && values.actual != null){
+            // if(device == 'bed' && values.actual != null){
+            //
+            //     if(svc.data.temperaturesChart.data[i] == undefined){
+            //
+            //         svc.data.temperaturesChart.data[i] = {
+            //             x: [],
+            //             y: [],
+            //             name: "Bed actual",
+            //             showlegend: false
+            //         };
+            //
+            //     }
+            //
+            //     svc.data.temperaturesChart.data[i].y.push(values.actual);
+            //     svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
+            //
+            //     i++;
+            //
+            //     if(svc.data.temperaturesChart.data[i] == undefined){
+            //
+            //         svc.data.temperaturesChart.data[i] = {
+            //             x: [],
+            //             y: [],
+            //             name: "Bed target",
+            //             showlegend: false
+            //         };
+            //
+            //     }
+            //
+            //     svc.data.temperaturesChart.data[i].y.push(values.target);
+            //     svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
+            //
+            //     i++;
+            //
+            //     return;
+            //
+            // }
 
-                if(svc.data.temperaturesChart.data[i] == undefined){
+            if(svc.data.temperaturesChart.data[i] == undefined && values.actual != null){
 
-                    svc.data.temperaturesChart.data[i] = {
-                        x: [],
-                        y: [],
-                        name: "Bed actual",
-                        showlegend: false
-                    };
+                svc.data.temperaturesChart.data[i] = {
+                    x: [],
+                    y: [],
+                    name: device+" actual",
+                    showlegend: false
+                };
 
-                }
+            }
+
+            if(svc.data.temperaturesChart.data[i] != undefined && values.actual != null){
 
                 svc.data.temperaturesChart.data[i].y.push(values.actual);
                 svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
@@ -352,7 +390,7 @@ function octoPrint($http, $q, __env){
                     svc.data.temperaturesChart.data[i] = {
                         x: [],
                         y: [],
-                        name: "Bed target",
+                        name: device+" target",
                         showlegend: false
                     };
 
@@ -363,41 +401,7 @@ function octoPrint($http, $q, __env){
 
                 i++;
 
-                return;
-
             }
-
-            if(svc.data.temperaturesChart.data[i] == undefined){
-
-                svc.data.temperaturesChart.data[i] = {
-                    x: [],
-                    y: [],
-                    name: device+" actual",
-                    showlegend: false
-                };
-
-            }
-
-            svc.data.temperaturesChart.data[i].y.push(values.actual);
-            svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
-
-            i++;
-
-            if(svc.data.temperaturesChart.data[i] == undefined){
-
-                svc.data.temperaturesChart.data[i] = {
-                    x: [],
-                    y: [],
-                    name: device+" target",
-                    showlegend: false
-                };
-
-            }
-
-            svc.data.temperaturesChart.data[i].y.push(values.target);
-            svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
-
-            i++;
 
         });
 

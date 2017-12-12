@@ -144,6 +144,14 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
         });
         /* DRAG & DROP END */
 
+        $('.card-webcam img').dblclick(function(event) {
+            $scope.settings.showFullScreen = true;
+        });
+
+        $('#webcam-fullscreen').dblclick(function(event) {
+            $scope.settings.showFullScreen = false;
+        });
+
     });
 
     jQuery(window).resize(function(event) {
@@ -225,7 +233,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
     $scope.settings = {
         autoscroll : true,
-        showFullScreen : false
+        showFullScreen : true
     };
 
     $scope.xyzcontrol = {

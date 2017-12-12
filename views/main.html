@@ -82,7 +82,7 @@
               </div>
             </div>
 
-            <div class="card">
+            <div class="card card-webcam">
               <div class="card-header">
                 <i class="fa fa-eye"></i> Webcam
                 <div class="card-actions">
@@ -93,8 +93,7 @@
               </div>
 
               <div class="card-body">
-                  <!-- <button ng-click="settings.showFullScreen = true" class="btn btn-primary"><i class="fa fa-home fa-fw"></i> -->
-                      {{ showFullScreen }}</button>
+                  <!-- <button ng-click="settings.showFullScreen = true" class="btn btn-secondary btn-sm" title="Show fullscreen"><i class="fa fa-expand fa-fw"></i>{{ showFullScreen }}</button> -->
                   <img ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" class="img-fluid" />
               </div>
 

@@ -3,8 +3,26 @@
 
 
 
+<!-- <div id="webcam-fullscreen" ng-show="settings.showFullScreen" style="background-image: url({{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }})"></div> -->
+
 <div id="webcam-fullscreen" ng-show="settings.showFullScreen">
-<img ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" class="img-fluid" />
+    <img ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" />
+    <div class="webcam-footer">
+
+        <ul class="webcam-nav float-left">
+            <li class="webcam-temp" ng-repeat="item in octoprint.data.temperaturesChart.data" ng-hide="$index%2">
+                {{ item.name | strReplace : ' actual' : '' }} : {{ item.y[item.y.length-1] }} / {{ octoprint.data.temperaturesChart.data[$index+1].y[octoprint.data.temperaturesChart.data[$index+1].y.length-1] }} °C
+            </li>
+        </ul>
+
+        <ul class="webcam-nav float-right">
+            <li ng-hide="!octoprint.data.printer.state.flags.printing">Print Time: <strong>{{ octoprint.data.jobs.progress.printTime ? (octoprint.data.jobs.progress.printTime * 1000 | duration) : '-' }}</strong></li>
+            <li ng-hide="!octoprint.data.printer.state.flags.printing">Print Time Left: <strong>{{ octoprint.data.jobs.progress.printTimeLeft ? (octoprint.data.jobs.progress.printTimeLeft * 1000 | duration) : '-' }}</strong></li>
+            <li ng-hide="!octoprint.data.printer.state.flags.printing"><button class="btn btn-secondary" ng-click="octoprint.sendJob('cancel')"><i class="fa fa-stop"></i> Cancel</button></li>
+            <li ng-hide="!octoprint.data.printer.state.flags.printing"><button class="btn btn-secondary" ng-click="octoprint.sendJob('pause')"><i class="fa fa-pause"></i> Pause</button></li>
+            <li><button class="btn btn-secondary" ng-click="settings.showFullScreen = false"><i class="fa fa-compress fa-fw"></i></button></li>
+        </ul>
+    </div>
 </div>
 
 <div class="app-body">
