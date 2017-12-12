@@ -233,7 +233,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
     $scope.settings = {
         autoscroll : true,
-        showFullScreen : true
+        showFullScreen : false
     };
 
     $scope.xyzcontrol = {
