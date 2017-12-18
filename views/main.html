@@ -233,7 +233,7 @@
                       File size : <strong>{{ octoprint.data.jobs.job.file.size | filesize:1 }}</strong>
                   </div>
                   <div>
-                      <button ng-click="loadGCodeViewer()" class="btn btn-warning btn-block">Load Gcode</button>
+                      <button ng-click="loadGCodeViewer()" class="btn btn-warning btn-block" ng-disabled="octoprint.data.jobs.job.file.path == null">Load Gcode</button>
                   </div>
               </div>
               <div class="card-body" ng-show="octoprint.data.gcodeviewer.loaded">

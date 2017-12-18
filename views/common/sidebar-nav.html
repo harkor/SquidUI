@@ -8,7 +8,7 @@
 
         <h1><i class="fa fa-signal"></i> Connection</h1>
         <div class="margins">
-            <form ng-submit="launchConnect()" ng-show="octoprint.data.connection.settings.current.state != 'Operational'">
+            <form ng-submit="launchConnect()" ng-show="octoprint.data.connection.settings.current.state == 'Closed'">
                 <div class="form-group">
                     <label>Serial Port</label>
                     <select ng-model="connection.serialPort" class="form-control">
@@ -37,7 +37,7 @@
                 </div>
             </form>
 
-            <button ng-click="octoprint.disconnect()" class="btn btn-primary btn-block"  ng-show="octoprint.data.connection.settings.current.state == 'Operational'">Disconnect</button>
+            <button ng-click="octoprint.disconnect()" class="btn btn-primary btn-block"  ng-show="octoprint.data.connection.settings.current.state != 'Closed'">Disconnect</button>
         </div>
 
 

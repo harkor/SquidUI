@@ -4,6 +4,10 @@
     cursor: pointer;
 }
 
+.btn[disabled] {
+    cursor: not-allowed;
+}
+
 .app-header.navbar .navbar-title {
     font-weight: bold;
     margin: 0 auto;

@@ -190,6 +190,9 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
                 jQuery("#slider-horizontal").slider( "value", GCODE.renderer.getLayerNumSegments(0)-1);
 
                 octoPrint.data.gcodeviewer.settings.sync = true;
+
+                jQuery(window).trigger('resize');
+
             },
 
             onLayerSelected : function(data){
@@ -207,7 +210,9 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             sortLayers : true
         });
 
-        octoPrint.gcodeviewer.loadFile(octoPrint.data.jobs.job.file.path);
+        if(octoPrint.data.jobs.job.file.path != null){
+            octoPrint.gcodeviewer.loadFile(octoPrint.data.jobs.job.file.path);
+        }
 
     }
 
