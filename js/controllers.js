@@ -7,6 +7,8 @@ angular
 mainCtrl.$inject = ['$rootScope', '$scope', '$interval', 'octoPrint'];
 function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
+    var fileLoadInProgress = false;
+
     $scope.fileManager = {
         selected : null,
         selectedParent: null,
@@ -177,14 +179,23 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
         octoPrint.data.gcodeviewer.loaded = true;
 
+        jQuery("#slider-vertical").css({ height : jQuery('#slider-horizontal').width()+"px" });
+
         GCODE.ui.init({
             container: '#canvas',
             onProgress : function(type, progress){
+
+                fileLoadInProgress = true;
+
                 octoPrint.data.gcodeviewer.progressStatus.type = type;
                 octoPrint.data.gcodeviewer.progressStatus.progress = progress;
+
+                jQuery("#slider-vertical").css({ height : jQuery('#slider-horizontal').width()+"px" });
+
             },
 
             onModelLoaded : function(data){
+                
                 jQuery("#slider-vertical").slider( "option", "max", GCODE.renderer.getModelNumLayers()-1);
                 jQuery("#slider-horizontal").slider( "option", "max", GCODE.renderer.getLayerNumSegments(0)-1);
                 jQuery("#slider-horizontal").slider( "value", GCODE.renderer.getLayerNumSegments(0)-1);
@@ -192,6 +203,8 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
                 octoPrint.data.gcodeviewer.settings.sync = true;
 
                 jQuery(window).trigger('resize');
+
+                fileLoadInProgress = false;
 
             },
 
@@ -202,6 +215,9 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
                 $('#slider-vertical').slider('value', data.number);
 
                 octoPrint.data.gcodeviewer.currentLayer = data.number;
+                octoPrint.data.gcodeviewer.currentLayerInfo = data;
+
+                jQuery("#slider-vertical").css({ height : jQuery('#slider-horizontal').width()+"px" });
 
             }
         });
@@ -210,7 +226,8 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             sortLayers : true
         });
 
-        if(octoPrint.data.jobs.job.file.path != null){
+        if(octoPrint.data.jobs.job.file.path != null && fileLoadInProgress === false){
+            jQuery("#slider-vertical").css({ height : jQuery('#slider-horizontal').width()+"px" });
             octoPrint.gcodeviewer.loadFile(octoPrint.data.jobs.job.file.path);
         }
 
@@ -221,7 +238,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             if(octoPrint.data.jobs.job == null) return false;
             else return octoPrint.data.jobs.job.file.path;
         }, function(value){
-            if(value !== false && value != null){
+            if(value !== false && value != null && fileLoadInProgress === false){
                 octoPrint.gcodeviewer.loadFile(value);
             }
         }

@@ -64,9 +64,12 @@
 
                       </div>
 
-                      <hr />
+                  </div>
 
-                      <h2>Tool</h2>
+                  <div class="card-header">
+                    Tool
+                  </div>
+                  <div class="card-body">
                       <div class="input-group">
                           <input type="text" class="form-control" ng-model="econtrol.distance">
                           <span class="input-group-addon">mm</span>
@@ -163,6 +166,32 @@
                 </div>
             </div>
 
+            <div class="card" ng-show="octoprint.data.timelapses.files.length">
+              <div class="card-header">
+                <i class="fa fa-video-camera"></i> Timelapses
+              </div>
+              <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th><th>Size</th><th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="timelapse-line" dir-paginate="file in octoprint.data.timelapses.files | itemsPerPage: 5">
+                                <td class="timelapse-name">{{ file.name }}</td>
+                                <td class="timelapse-size">{{ file.size }}</td>
+                                <td class="timelapse-actions">
+                                    <button class="btn btn-primary btn-sm" title="Delete" ng-click="deleteTimelapse(file)"><i class="fa fa-trash fa-fw"></i></button>
+                                    <a class="btn btn-primary btn-sm" href="{{ octoprint.host }}{{ file.url }}"><i class="fa fa-download fa-fw"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls></dir-pagination-controls>
+                </div>
+            </div>
+
         </div>
 
         <div class="col-lg-4">
@@ -218,6 +247,27 @@
                         </span>
                       </div>
                 </form>
+                <div class="card-header">
+                    Infos
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tool</th>
+                                <th>Actual</th>
+                                <th>Target</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in octoprint.data.temperaturesChart.data" ng-hide="$index%2">
+                                <th>{{ item.name | strReplace : ' actual' : '' }}</th>
+                                <td>{{ item.y[item.y.length-1] }} °C</td>
+                                <td>{{ octoprint.data.temperaturesChart.data[$index+1].y[octoprint.data.temperaturesChart.data[$index+1].y.length-1] }} °C</td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
 
             </div>
 
@@ -258,7 +308,26 @@
                       </div>
                   </div>
 
-                  <hr />
+                  <!-- <hr /> -->
+              </div>
+
+              <div class="card-header" ng-show="octoprint.data.gcodeviewer.loaded">
+                Layer Info
+              </div>
+              <div class="card-body" ng-show="octoprint.data.gcodeviewer.loaded">
+
+                  <!-- <h2>Layer Info</h2> -->
+                  <p>Layer number: {{ octoprint.data.gcodeviewer.currentLayerInfo.number }}</p>
+                  <p>Layer height (mm): {{ octoprint.data.gcodeviewer.currentLayerInfo.height }}</p>
+                  <p>GCODE commands: {{ octoprint.data.gcodeviewer.currentLayerInfo.commands }}</p>
+                  <p>Filament: {{ octoprint.data.gcodeviewer.currentLayerInfo.filament[0] | number : 1 }}mm</p>
+                  <p>Estimated print time: {{ octoprint.data.gcodeviewer.currentLayerInfo.printTime | duration : 'second' : 'second' }}</p>
+
+              </div>
+              <div class="card-header" ng-show="octoprint.data.gcodeviewer.loaded">
+                Renderer Options
+              </div>
+              <div class="card-body" ng-show="octoprint.data.gcodeviewer.loaded">
 
                   <div>
                       <label class="switch switch-default switch-primary">
@@ -302,32 +371,6 @@
 
               </div>
 
-            </div>
-
-            <div class="card">
-              <div class="card-header">
-                <i class="fa fa-video-camera"></i> Timelapses
-              </div>
-              <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th><th>Size</th><th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="timelapse-line" dir-paginate="file in octoprint.data.timelapses.files | itemsPerPage: 5">
-                                <td class="timelapse-name">{{ file.name }}</td>
-                                <td class="timelapse-size">{{ file.size }}</td>
-                                <td class="timelapse-actions">
-                                    <button class="btn btn-primary btn-sm" title="Delete" ng-click="deleteTimelapse(file)"><i class="fa fa-trash fa-fw"></i></button>
-                                    <a class="btn btn-primary btn-sm" href="{{ octoprint.host }}{{ file.url }}"><i class="fa fa-download fa-fw"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <dir-pagination-controls></dir-pagination-controls>
-                </div>
             </div>
 
         </div>

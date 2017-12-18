@@ -48,11 +48,11 @@
             <li class="divider"></li>
             <li>File: <strong>{{ octoprint.data.jobs.job.file.name }}</strong></li>
             <li>Timelapse: <strong>{{ octoprint.data.timelapses.config.type }}</strong></li>
-            <li>Approx. Total Print Time: <strong>{{ octoprint.data.jobs.job.estimatedPrintTime * 1000 | duration }}</strong></li>
+            <li>Approx. Total Print Time: <strong>{{ octoprint.data.jobs.job.estimatedPrintTime | duration : 'second' : 'second' }}</strong></li>
             <li class="divider"></li>
             <li>Current Z: <strong>{{ octoprint.data.currentZ ? octoprint.data.currentZ + 'mm' : '-' }}</strong></li>
-            <li>Print Time: <strong>{{ octoprint.data.jobs.progress.printTime ? (octoprint.data.jobs.progress.printTime * 1000 | duration) : '-' }}</strong></li>
-            <li>Print Time Left: <strong>{{ octoprint.data.jobs.progress.printTimeLeft ? (octoprint.data.jobs.progress.printTimeLeft * 1000 | duration) : '-' }}</strong></li>
+            <li>Print Time: <strong>{{ octoprint.data.jobs.progress.printTime ? (octoprint.data.jobs.progress.printTime | duration : 'second' : 'second') : '-' }}</strong></li>
+            <li>Print Time Left: <strong>{{ octoprint.data.jobs.progress.printTimeLeft ? (octoprint.data.jobs.progress.printTimeLeft | duration : 'second' : 'second') : '-' }}</strong></li>
             <!-- <li>Current Height: <strong>value</strong></li> -->
             <li>Progress: <strong>{{ octoprint.data.jobs.progress.completion | number: 1 }}%</strong></li>
         </ul>
