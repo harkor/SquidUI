@@ -5,7 +5,7 @@
 
 - bower
 - Enable and set API settings
-- U need to edit <b>/etc/haproxy/haproxy.cfg</b> on octoprint installation with the following lines
+- U need to edit **/etc/haproxy/haproxy.cfg** on octoprint installation with the following lines
 
 ### Lines
     frontend octoprint
@@ -20,6 +20,8 @@
         http-response set-header Access-Control-Allow-Credentials true
         http-response set-header Access-Control-Allow-Origin %[capture.req.hdr(0)]
         ...
+
+- Save file and reboot OctoPrint
 
 ## How to install
 
