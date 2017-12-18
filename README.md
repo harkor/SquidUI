@@ -9,15 +9,17 @@
 
 ### Lines
     frontend octoprint
-    ...
-    # CORS Config Capture
-    capture request header origin len 50
+        ...
+        # CORS Config Capture
+        capture request header origin len 50
+        ...
 
     backend octoprint
-    ...
-    # Add CORS headers when Origin header is present
-    http-response set-header Access-Control-Allow-Credentials true
-    http-response set-header Access-Control-Allow-Origin %[capture.req.hdr(0)]
+        ...
+        # Add CORS headers when Origin header is present
+        http-response set-header Access-Control-Allow-Credentials true
+        http-response set-header Access-Control-Allow-Origin %[capture.req.hdr(0)]
+        ...
 
 ## How to install
 
