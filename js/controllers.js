@@ -335,26 +335,6 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
     }
 
-    // $scope.setTemp = function(isBed){
-    //
-    //     if(isBed != null && isBed == true){
-    //
-    //         $scope.octoprint.sendGCode(['M140 S'+$scope.bedTemperature.degrees]);
-    //         $scope.bedTemperature.degreesPlaceholder = $scope.bedTemperature.degrees;
-    //         if($scope.bedTemperature.degreesPlaceholder == 0) $scope.bedTemperature.degreesPlaceholder = "";
-    //         $scope.bedTemperature.degrees = "";
-    //
-    //     } else {
-    //
-    //         $scope.octoprint.sendGCode(['M104 S'+$scope.temperature.degrees]);
-    //         $scope.temperature.degreesPlaceholder = $scope.temperature.degrees;
-    //         if($scope.temperature.degreesPlaceholder == 0) $scope.temperature.degreesPlaceholder = "";
-    //         $scope.temperature.degrees = "";
-    //
-    //     }
-    //
-    // }
-
     $scope.setTemp = function(item){
 
         var isBed = false;
