@@ -1,4 +1,6 @@
-![Image of SquidUI](https://git.makz.me/harkor/octopouet/raw/master/img/squid.svg?sanitize=true)
+![Image of SquidUI](https://git.makz.me/harkor/octopouet/raw/master/img/squid.png)
+> Icon made by Freepik
+
 ## Prerequisites
 
 - bower
@@ -18,7 +20,7 @@
 ## How to install
 
 - Clone the repository
-- Go to the directory
+- Go to the directory of the project
 - Dupplicate "env.example.js" with "env.js" and set octoprint settings
 - npm install
 - Access the file with your browser
