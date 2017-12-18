@@ -4,7 +4,7 @@
 ## Prerequisites
 
 - bower
-- Enable and set API settings
+- Enable and set API settings (in OctoPrint interface)
 - U need to edit **/etc/haproxy/haproxy.cfg** on octoprint installation with the following lines
 
 ### Lines

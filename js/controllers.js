@@ -195,7 +195,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             },
 
             onModelLoaded : function(data){
-                
+
                 jQuery("#slider-vertical").slider( "option", "max", GCODE.renderer.getModelNumLayers()-1);
                 jQuery("#slider-horizontal").slider( "option", "max", GCODE.renderer.getLayerNumSegments(0)-1);
                 jQuery("#slider-horizontal").slider( "value", GCODE.renderer.getLayerNumSegments(0)-1);
@@ -335,23 +335,41 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
 
     }
 
-    $scope.setTemp = function(isBed){
+    // $scope.setTemp = function(isBed){
+    //
+    //     if(isBed != null && isBed == true){
+    //
+    //         $scope.octoprint.sendGCode(['M140 S'+$scope.bedTemperature.degrees]);
+    //         $scope.bedTemperature.degreesPlaceholder = $scope.bedTemperature.degrees;
+    //         if($scope.bedTemperature.degreesPlaceholder == 0) $scope.bedTemperature.degreesPlaceholder = "";
+    //         $scope.bedTemperature.degrees = "";
+    //
+    //     } else {
+    //
+    //         $scope.octoprint.sendGCode(['M104 S'+$scope.temperature.degrees]);
+    //         $scope.temperature.degreesPlaceholder = $scope.temperature.degrees;
+    //         if($scope.temperature.degreesPlaceholder == 0) $scope.temperature.degreesPlaceholder = "";
+    //         $scope.temperature.degrees = "";
+    //
+    //     }
+    //
+    // }
+
+    $scope.setTemp = function(item){
+
+        var isBed = false;
+        var command = [];
+
+        if(item.name.indexOf('bed') != -1) isBed = true;
 
         if(isBed != null && isBed == true){
-
-            $scope.octoprint.sendGCode(['M140 S'+$scope.bedTemperature.degrees]);
-            $scope.bedTemperature.degreesPlaceholder = $scope.bedTemperature.degrees;
-            if($scope.bedTemperature.degreesPlaceholder == 0) $scope.bedTemperature.degreesPlaceholder = "";
-            $scope.bedTemperature.degrees = "";
-
+            command[0] = 'M140 S' + item.form.degrees;
         } else {
-
-            $scope.octoprint.sendGCode(['M104 S'+$scope.temperature.degrees]);
-            $scope.temperature.degreesPlaceholder = $scope.temperature.degrees;
-            if($scope.temperature.degreesPlaceholder == 0) $scope.temperature.degreesPlaceholder = "";
-            $scope.temperature.degrees = "";
-
+            command[0] = 'M104 S' + item.form.degrees;
         }
+
+        item.form.degrees = '';
+        $scope.octoprint.sendGCode(command);
 
     }
 

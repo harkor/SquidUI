@@ -228,25 +228,6 @@
               <div class="card-body">
                 <plotly plotly-data="octoprint.data.temperaturesChart.data" plotly-layout="tempChart.layout" plotly-options="tempChart.options"></plotly>
               </div>
-              <form ng-submit="setTemp()">
-                  <div class="input-group">
-                      <span class="input-group-addon">Tool 0</span>
-                      <input type="text" class="form-control" ng-model="temperature.degrees" placeholder="{{ temperature.degreesPlaceholder }}">
-                      <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" ng-click="setTemp()">Set</button>
-                      </span>
-                    </div>
-
-                </form>
-                <form ng-submit="setTemp()">
-                    <div class="input-group" ng-show="octoprint.data.printerprofile.heatedBed">
-                        <span class="input-group-addon">Bed</span>
-                        <input type="text" class="form-control" ng-model="bedTemperature.degrees" placeholder="{{ bedTemperature.degreesPlaceholder }}">
-                        <span class="input-group-btn">
-                          <button class="btn btn-primary" type="button" ng-click="setTemp(true)">Set</button>
-                        </span>
-                      </div>
-                </form>
                 <div class="card-header">
                     Infos
                 </div>
@@ -261,9 +242,20 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in octoprint.data.temperaturesChart.data" ng-hide="$index%2">
+
                                 <th>{{ item.name | strReplace : ' actual' : '' }}</th>
                                 <td>{{ item.y[item.y.length-1] }} °C</td>
-                                <td>{{ octoprint.data.temperaturesChart.data[$index+1].y[octoprint.data.temperaturesChart.data[$index+1].y.length-1] }} °C</td>
+                                <td>
+                                    <form ng-submit="setTemp(item)">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">C°</span>
+                                            <input type="text" class="form-control" ng-model="item.form.degrees" placeholder="{{ octoprint.data.temperaturesChart.data[$index+1].y[octoprint.data.temperaturesChart.data[$index+1].y.length-1] != 0 ? octoprint.data.temperaturesChart.data[$index+1].y[octoprint.data.temperaturesChart.data[$index+1].y.length-1] : 'off' }}" style="width:0">
+                                            <span class="input-group-btn">
+                                              <button class="btn btn-primary" type="button" ng-click="setTemp(item)"><i class="fa fa-check fa-fw"></i></button>
+                                            </span>
+                                          </div>
+                                    </form>
+                                </td>
                             </tr>
                         <tbody>
                     </table>
