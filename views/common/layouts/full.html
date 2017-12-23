@@ -6,7 +6,7 @@
 <!-- <div id="webcam-fullscreen" ng-show="settings.showFullScreen" style="background-image: url({{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }})"></div> -->
 
 <div id="webcam-fullscreen" ng-show="settings.showFullScreen">
-    <img ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" />
+    <img ng-class="[octoprint.data.settings.webcam.flipH == true ? 'flipH' : '', octoprint.data.settings.webcam.flipV == true ? 'flipV' : '']" ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" />
     <div class="webcam-footer">
 
         <ul class="webcam-nav float-left">
