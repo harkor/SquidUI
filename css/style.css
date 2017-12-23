@@ -9125,3 +9125,21 @@ hr.transparent {
 
 .progress-upload {
   margin-top: 20px; }
+
+.flipH.flipV {
+  -webkit-transform: scaleX(-1) scaleY(-1);
+  -moz-transform: scaleX(-1) scaleY(-1);
+  -ms-transform: scaleX(-1) scaleY(-1);
+  transform: scaleX(-1) scaleY(-1); }
+
+.flipV {
+  -webkit-transform: scaleY(-1);
+  -moz-transform: scaleY(-1);
+  -ms-transform: scaleY(-1);
+  transform: scaleY(-1); }
+
+.flipH {
+  -webkit-transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1); }

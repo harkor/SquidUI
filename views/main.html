@@ -97,7 +97,7 @@
 
               <div class="card-body">
                   <!-- <button ng-click="settings.showFullScreen = true" class="btn btn-secondary btn-sm" title="Show fullscreen"><i class="fa fa-expand fa-fw"></i>{{ showFullScreen }}</button> -->
-                  <img ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" class="img-fluid" />
+                  <img class="img-fluid" ng-class="[octoprint.data.settings.webcam.flipH == true ? 'flipH' : '', octoprint.data.settings.webcam.flipV == true ? 'flipV' : '']" ng-src="{{ octoprint.data.settings.webcam.streamUrl.indexOf('http://') == -1 ? octoprint.host : '' }}{{ octoprint.data.settings.webcam.streamUrl }}" />
               </div>
 
               <!-- {{octoprint.data.printerprofile}} -->

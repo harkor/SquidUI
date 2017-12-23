@@ -171,7 +171,7 @@ function octoPrint($http, $q, __env){
     svc.getSettings = function(){
 
         svc.socket.settings.get().done(function(response){
-
+            console.log(response);
             svc.data.settings = response;
         });
 
