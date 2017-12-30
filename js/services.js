@@ -328,44 +328,6 @@ function octoPrint($http, $q, __env){
 
             if(device == 'time') return;
 
-            // if(device == 'bed' && values.actual != null){
-            //
-            //     if(svc.data.temperaturesChart.data[i] == undefined){
-            //
-            //         svc.data.temperaturesChart.data[i] = {
-            //             x: [],
-            //             y: [],
-            //             name: "Bed actual",
-            //             showlegend: false
-            //         };
-            //
-            //     }
-            //
-            //     svc.data.temperaturesChart.data[i].y.push(values.actual);
-            //     svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
-            //
-            //     i++;
-            //
-            //     if(svc.data.temperaturesChart.data[i] == undefined){
-            //
-            //         svc.data.temperaturesChart.data[i] = {
-            //             x: [],
-            //             y: [],
-            //             name: "Bed target",
-            //             showlegend: false
-            //         };
-            //
-            //     }
-            //
-            //     svc.data.temperaturesChart.data[i].y.push(values.target);
-            //     svc.data.temperaturesChart.data[i].x.push(new Date(temp.time*1000));
-            //
-            //     i++;
-            //
-            //     return;
-            //
-            // }
-
             if(svc.data.temperaturesChart.data[i] == undefined && values.actual != null){
 
                 svc.data.temperaturesChart.data[i] = {
@@ -405,7 +367,10 @@ function octoPrint($http, $q, __env){
         });
 
 
-        if(svc.data.temperaturesChart.data[0].x.length > 100){ // Max 100 temp
+
+
+        if(svc.data.temperaturesChart.data[0].x.length > __env.maxPointsTemperature){ // Max 100 temp
+        // if(svc.data.temperaturesChart.data[0].x.length > 100){ // Max 100 temp
 
             _.each(svc.data.temperaturesChart.data, function(val){
                 val.y.splice(0,1);
