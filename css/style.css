@@ -9056,6 +9056,12 @@ hr.transparent {
       display: block;
       text-overflow: ellipsis;
       word-break: break-all; }
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name.print-success,
+    .file-manager-list-container .file-manager-list .back .file-manager-item-name.print-success {
+      color: green; }
+    .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name.print-error,
+    .file-manager-list-container .file-manager-list .back .file-manager-item-name.print-error {
+      color: red; }
     .file-manager-list-container .file-manager-list .file-manager-item .file-manager-item-name.loaded-file,
     .file-manager-list-container .file-manager-list .back .file-manager-item-name.loaded-file {
       font-weight: bold; }

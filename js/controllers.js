@@ -185,12 +185,12 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             container: '#canvas',
             onProgress : function(type, progress){
 
-                fileLoadInProgress = true;
-
-                octoPrint.data.gcodeviewer.progressStatus.type = type;
-                octoPrint.data.gcodeviewer.progressStatus.progress = progress;
-
-                jQuery("#slider-vertical").css({ height : jQuery('#slider-horizontal').width()+"px" });
+                if(type != ''){
+                    fileLoadInProgress = true;
+                    octoPrint.data.gcodeviewer.progressStatus.type = type;
+                    octoPrint.data.gcodeviewer.progressStatus.progress = progress;
+                    jQuery("#slider-vertical").css({ height : jQuery('#slider-horizontal').width()+"px" });
+                }
 
             },
 

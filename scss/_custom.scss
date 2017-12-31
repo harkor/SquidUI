@@ -204,6 +204,14 @@
                 word-break: break-all;
             }
 
+            .file-manager-item-name.print-success {
+                color: green;
+            }
+
+            .file-manager-item-name.print-error {
+                color: red;
+            }
+
             .file-manager-item-name.loaded-file {
                 font-weight: bold;
             }

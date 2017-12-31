@@ -1,5 +1,5 @@
 
-<span class="file-manager-item-name" ng-class="octoprint.data.jobs.job.file.name == file.name ? 'loaded-file' : ''" ng-click="fileManager.open(file)">
+<span class="file-manager-item-name" ng-class="[octoprint.data.jobs.job.file.name == file.name ? 'loaded-file' : '', file.prints.last.success == true ? 'print-success' : '', file.prints.last.success == false ? 'print-error' : '']" ng-click="fileManager.open(file)">
     <i class="fa fa-folder-open" ng-if="file.type == 'folder' && file.selected == true"></i>
     <i class="fa fa-folder" ng-if="file.type == 'folder' && file.selected != true"></i>
     {{ file.name }}

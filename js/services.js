@@ -13,6 +13,9 @@ function octoPrint($http, $q, __env){
     svc.apiUrl = svc.host+"/api";
     svc.appUrl = __env.appUrl;
 
+    svc.maxPointsTemperature = 100;
+    if(__env.maxPointsTemperature != null) svc.maxPointsTemperature = __env.maxPointsTemperature;
+
     GCODE_WORKER = svc.appUrl+"/static/gcode-viewer/js/Worker.js"
 
     svc.data = {
@@ -193,6 +196,7 @@ function octoPrint($http, $q, __env){
         svc.socket.files.list(true)
         .done(function(response) {
             svc.data.files = response;
+            console.log(response);
         });
 
     }
@@ -366,11 +370,7 @@ function octoPrint($http, $q, __env){
 
         });
 
-
-
-
-        if(svc.data.temperaturesChart.data[0].x.length > __env.maxPointsTemperature){ // Max 100 temp
-        // if(svc.data.temperaturesChart.data[0].x.length > 100){ // Max 100 temp
+        if(svc.data.temperaturesChart.data[0].x.length > svc.maxPointsTemperature){ // Max temp
 
             _.each(svc.data.temperaturesChart.data, function(val){
                 val.y.splice(0,1);
