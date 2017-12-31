@@ -57,7 +57,6 @@ angular
 // .constant('moment', require('moment-timezone'));
 ;
 
-
 $.fn.draghover = function(options) {
   return this.each(function() {
 
