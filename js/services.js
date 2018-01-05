@@ -120,6 +120,10 @@ function octoPrint($http, $q, __env){
                     var cmdIndex = GCODE.gCodeReader.getCmdIndexForPercentage(svc.data.jobs.progress.completion);
                     if (cmdIndex !== false && cmdIndex != undefined){
 
+                        if(svc.data.gcodeviewer.currentLayer != cmdIndex.layer){
+                            GCODE.ui.updateLayerInfo(cmdIndex.layer);
+                        }
+
                         GCODE.renderer.render(cmdIndex.layer, 0, cmdIndex.cmd);
 
                         jQuery("#slider-horizontal").slider( "value", cmdIndex.cmd);

@@ -185,7 +185,7 @@ function mainCtrl($rootScope, $scope, $interval, octoPrint) {
             container: '#canvas',
             onProgress : function(type, progress){
 
-                if(type != ''){
+                if(type != '' && type != octoPrint.data.gcodeviewer.progressStatus.type){
                     fileLoadInProgress = true;
                     octoPrint.data.gcodeviewer.progressStatus.type = type;
                     octoPrint.data.gcodeviewer.progressStatus.progress = progress;

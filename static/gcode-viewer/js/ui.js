@@ -23,16 +23,18 @@ GCODE.ui = (function(){
         if (uiOptions["onProgress"]) {
             uiOptions.onProgress(type, progress);
         }
-        
+
     };
 
     var switchLayer = function(layerNum, onlyInfo) {
+
         if (!onlyInfo) {
             var segmentCount = GCODE.renderer.getLayerNumSegments(layerNum);
             GCODE.renderer.render(layerNum, 0, segmentCount - 1);
         }
 
         if (uiOptions["onLayerSelected"]) {
+
             var z = GCODE.renderer.getZ(layerNum);
             var modelInfo = GCODE.gCodeReader.getModelInfo();
             uiOptions.onLayerSelected({
